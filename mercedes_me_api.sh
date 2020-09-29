@@ -5,7 +5,7 @@
 # Creation Date: 28/09/2020
 #
 # Change log:
-#             0.1 - First Issue
+#             28/09/2020 - 0.1 - First Issue
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
