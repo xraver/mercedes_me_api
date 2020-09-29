@@ -15,11 +15,11 @@ Note: the APIs described above do not requires any subscription in case you use 
 To use this script it's necessary to perform the following instructions:
 1) clone the repository
 2) create a credentials files (.mercedes_credentials) with:
-> CLIENT_ID=""
-
-> CLIENT_SECRET=""
-
-> VEHICLE_ID=""
+```bash
+CLIENT_ID=""
+CLIENT_SECRET=""
+VEHICLE_ID=""
+```
 
 where CLIENT_ID and CLIENT_SECRET referring to the application information that can be found in [Mercedes Developer Console](https://developer.mercedes-benz.com/console) and VEHICLE_ID is the VIN of your car.
 
