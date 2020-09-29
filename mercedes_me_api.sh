@@ -7,15 +7,29 @@
 # Change log:
 #             0.1 - First Issue
 
+# Script Name & Version
+NAME="mercedes_me_api.sh"
+VERSION="0.1"
+
 # Static Parameters
-NAME=mercedes_me_api.sh
-CLIENT_ID="XXX"
-CLIENT_SECRET="XXX"
 REDIRECT_URL="https://localhost"
 SCOPE="mb:vehicle:mbdata:fuelstatus mb:vehicle:mbdata:vehiclestatus mb:vehicle:mbdata:vehiclelock offline_access"
 STATE="12345678"
-VEHICLE_ID="XXX"
 TOKEN_FILE=".mercedes_token"
+CREDENTIALS_FILE=".mercedes_credentials"
+
+# Credentials
+CLIENT_ID=""
+CLIENT_SECRET=""
+VEHICLE_ID=""
+# Loading Credentials
+if [[ -f "$CREDENTIALS_FILE" ]]; then
+  . $CREDENTIALS_FILE
+fi
+if [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ]; then
+  echo "Please create $CREDENTIALS_FILE with CLIENT_ID=\"\", CLIENT_SECRET=\"\", VEHICLE_ID=\"\""
+  exit
+fi
 
 # URL
 RES_URL="https://api.mercedes-benz.com/vehicledata/v2/vehicles/$VEHICLE_ID/resources"
@@ -147,4 +161,5 @@ function printStatus ()
   done
 }
 
+echo $NAME - $VERSION
 parse_options $@
