@@ -1,4 +1,4 @@
-# mercedes_me_api
+# mercedes_me_api [![License Status](https://img.shields.io/github/license/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/blob/master/LICENSE) [![Tag Status](https://img.shields.io/github/v/tag/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/tags) [![Last Commit](https://img.shields.io/github/last-commit/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/commits/master)
 Script to interface with Mercedes Me APIs
 
 ## Pre-Requirements
