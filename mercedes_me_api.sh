@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Author: G. Ravera
-# Version 0.1
+# Version 0.2
 # Creation Date: 28/09/2020
 #
 # Change log:
 #             28/09/2020 - 0.1 - First Issue
+#             18/10/2020 - 0.2 - Added the possibility to retrive the list of resources available
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
@@ -37,7 +38,7 @@ RES_URL="https://api.mercedes-benz.com/vehicledata/v2/vehicles/$VEHICLE_ID/resou
 # Resources
 RES_FUEL=(rangeliquid tanklevelpercent)
 RES_LOCK=(doorlockstatusvehicle doorlockstatusdecklid doorlockstatusgas positionHeading)
-RES_STAT=(doorlockstatusdecklid doorstatusfrontleft doorstatusfrontright doorstatusrearleft doorstatusrearright \
+RES_STAT=(decklidstatus doorstatusfrontleft doorstatusfrontright doorstatusrearleft doorstatusrearright \
           interiorLightsFront interiorLightsRear lightswitchposition readingLampFrontLeft readingLampFrontRight \
           rooftopstatus sunroofstatus \
           windowstatusfrontleft windowstatusfrontright windowstatusrearleft windowstatusrearright
@@ -56,13 +57,14 @@ function usage ()
   echo "    -f, --fuel         Retrive the Fuel Status of your Vehicle"
   echo "    -l, --lock         Retrive the Lock Status of your Vehicle"
   echo "    -s, --status       Retrive the General Status of your Vehicle"
+  echo "    -R, --resources    Retrive the list of available resources of your Vehicle"
   exit
 }
 
 function parse_options ()
 {
 	# Check Options
-	OPT=$(getopt -o trfls --long token,refresh,fuel,lock,status -n "$NAME parse-error" -- "$@")
+	OPT=$(getopt -o trflsR --long token,refresh,fuel,lock,status,resources -n "$NAME parse-error" -- "$@")
 	if [ $? != 0 ] || [ $# -eq 0 ]; then
 		usage
 	fi
@@ -90,6 +92,10 @@ function parse_options ()
 				;;
 			-s | --status )
 				printStatus "${RES_STAT[@]}"
+				shift
+				;;
+			--resources )
+				printResources
 				shift
 				;;
 			* ) shift ;;
@@ -161,5 +167,14 @@ function printStatus ()
   done
 }
 
+function printResources ()
+{
+  extractAccessToken
+
+  curl -X GET "$RES_URL" -H "accept: application/json;charset=utf-8" -H "authorization: Bearer $ACCESS_TOKEN"
+
+}
+
 echo $NAME - $VERSION
+echo
 parse_options $@
