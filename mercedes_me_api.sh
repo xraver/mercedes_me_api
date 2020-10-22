@@ -10,14 +10,14 @@
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
-VERSION="0.1"
+VERSION="0.2"
 
 # Static Parameters
 REDIRECT_URL="https://localhost"
 SCOPE="mb:vehicle:mbdata:fuelstatus mb:vehicle:mbdata:vehiclestatus mb:vehicle:mbdata:vehiclelock offline_access"
 STATE="12345678"
 TOKEN_FILE=".mercedesme_token"
-CREDENTIALS_FILE=".mercedesmw_credentials"
+CREDENTIALS_FILE=".mercedesme_credentials"
 
 # Credentials
 CLIENT_ID=""
