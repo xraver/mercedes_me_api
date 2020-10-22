@@ -16,14 +16,28 @@ To use this script it's necessary to perform the following instructions:
 1) clone the repository
 2) create a credentials files (.mercedes_credentials) with:
 ```bash
-CLIENT_ID=""
-CLIENT_SECRET=""
-VEHICLE_ID=""
+CLIENT_ID=<**INSERT_YOUR_CLIENT_ID**>
+CLIENT_SECRET=<**INSERT_YOUR_CLIENT_SECRET**>
+VEHICLE_ID=<**INSERT_YOUR_VEHICLE_ID**>
 ```
 
 where CLIENT_ID and CLIENT_SECRET referring to the application information that can be found in [Mercedes Developer Console](https://developer.mercedes-benz.com/console) and VEHICLE_ID is the VIN of your car.
 
-## Usage
+## Python Usage
+To execute the script read below:
+```bash
+usage: mercedes_me_api.py [-h] [-t] [-r] [-s] [-R] [-v]
+
+optional arguments:
+  -h, --help       show this help message and exit
+  -t, --token      Procedure to obtatin the Access Token
+  -r, --refresh    Procedure to refresh the Access Token
+  -s, --status     Retrive the Status of your Vehicle
+  -R, --resources  Retrive the list of available resources of your Vehicle
+  -v, --version    show program's version number and exit
+```
+
+## Bash Usage
 To execute the script read below:
 ```bash
 Usage:    mercedes_me_api.sh <arguments>
@@ -38,6 +52,7 @@ The possible arguments are:
     -l, --lock         Retrive the Lock Status of your Vehicle
     -s, --status       Retrive the General Status of your Vehicle
 ```
+
 ## License
 [MIT](http://opensource.org/licenses/MIT) © Giorgio Ravera
 
