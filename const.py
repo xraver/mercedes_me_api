@@ -6,7 +6,6 @@ Author: G. Ravera
 For more details about this component, please refer to the documentation at
 https://github.com/xraver/mercedes_me_api/
 """
-
 # Software Parameters
 NAME = "Mercedes Me API"
 DOMAIN = "mercedesmeapi"

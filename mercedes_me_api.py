@@ -11,7 +11,7 @@ import logging
 import sys
 
 from config import MercedesMeConfig
-from resources import MercedesMeResources
+from resources import MercedesMeResourcesDB
 
 # Logger
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ class MercedesMeData:
         # Configuration Data
         self.config = MercedesMeConfig()
         # Resource Data
-        self.resources = MercedesMeResources(self.config)
+        self.resourcesDB = MercedesMeResourcesDB(self.config)
 
 ########################
 # Parse Input
@@ -55,7 +55,7 @@ if __name__ == "__main__":
         logger.error ("Error initializing configuration")
         exit (1)
 
-    if not data.resources.ReadResources():
+    if not data.resourcesDB.ReadResources():
         logger.error ("Error initializing resources")
         exit (1)
 
@@ -70,8 +70,8 @@ if __name__ == "__main__":
             exit (1)
             
     if (args.resources):
-        data.resources.PrintAvailableResources()
+        data.resourcesDB.PrintAvailableResources()
 
     if (args.status == True):
-        data.resources.UpdateResourcesStatus()
-        data.resources.PrintResourcesStatus()
+        data.resourcesDB.UpdateResourcesStatus()
+        data.resourcesDB.PrintResourcesStatus()
