@@ -17,26 +17,10 @@ from query import (
 	GetResource,
 	GetToken
 )
+from const import *
 
 # Logger
 logger = logging.getLogger(__name__)
-
-# Software Parameters
-NAME = "Mercedes Me API"
-DOMAIN = "mercedesmeapi"
-VERSION = "0.2"
-TOKEN_FILE = ".mercedesme_token"
-CREDENTIAL_FILE = ".mercedesme_credentials"
-RESOURCES_FILE = ".mercedesme_resources"
-REDIRECT_URL = "https://localhost"
-SCOPE = "mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20offline_access"
-URL_OAUTH = "https://id.mercedes-benz.com/as/token.oauth2"
-URL_RES_PREFIX = "https://api.mercedes-benz.com/vehicledata/v2"
-
-# File Parameters
-CONF_CLIENT_ID = "CLIENT_ID"
-CONF_CLIENT_SECRET = "CLIENT_SECRET"
-CONF_VEHICLE_ID = "VEHICLE_ID"
 
 class MercedesMeConfig:
 

@@ -2,3 +2,4 @@ __pycache__
 .mercedesme_credentials
 .mercedesme_token
 .mercedesme_resources
+*.pyc
