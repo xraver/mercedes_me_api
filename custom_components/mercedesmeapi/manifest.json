@@ -1,0 +1,14 @@
+{
+    "domain": "mercedesmeapi",
+    "name": "Mercedes Me Api",
+    "documentation": "https://github.com/xraver/mercedes_me_api",
+    "dependencies": [],
+    "config_flow": false,
+    "codeowners": [
+      "@xraver"
+    ],
+    "requirements": [
+      "requests"
+    ],
+    "homeassistant": "0.100.0"
+  }
