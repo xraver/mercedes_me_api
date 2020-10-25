@@ -201,7 +201,6 @@ class MercedesMeResources:
     # Update Resources State
     ########################
     def UpdateResourcesState(self):
-        _LOGGER.error("Update Resources")
         for res in self.database:
             resName = res._name
             resURL = URL_RES_PREFIX + res._href

@@ -33,6 +33,7 @@ class MercedesMeConfig:
     base64 = ""
     access_token = ""
     refresh_token = ""
+    token_expires_in = ""
     oauth_url = URL_OAUTH
     res_url_prefix = URL_RES_PREFIX
 
@@ -96,6 +97,7 @@ class MercedesMeConfig:
                     # Save Token
                     self.access_token = token['access_token']
                     self.refresh_token = token['refresh_token']
+                    self.token_expires_in = token['expires_in']
                     needToRefresh = True
                 else:
                     _LOGGER.error ("Token File not correct - Creating a new one")
@@ -157,6 +159,7 @@ class MercedesMeConfig:
             self.WriteToken(token)
             self.access_token = token['access_token']
             self.refresh_token = token['refresh_token']
+            self.token_expires_in = token['expires_in']
             return True
 
     ########################
@@ -174,4 +177,5 @@ class MercedesMeConfig:
             self.WriteToken(token)
             self.access_token = token['access_token']
             self.refresh_token = token['refresh_token']
+            self.token_expires_in = token['expires_in']
         return True
