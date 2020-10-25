@@ -12,39 +12,77 @@ import os
 
 from config import MercedesMeConfig
 from query import GetResource
+from const import *
 
 # Logger
-logger = logging.getLogger(__name__)
+_LOGGER = logging.getLogger(__name__)
 
 class MercedesMeResource:
-    def __init__( self, name, version, href, status=None, timestamp=None, valid=False ):
-        self.name = name 
-        self.version = version
-        self.href = href
-        self.status = status
-        self.timestamp = timestamp
-        self.valid = valid
+    def __init__( self, name, vin, version, href, state=None, timestamp=None, valid=False ):
+        self._name = name
+        self._version = version
+        self._href = href
+        self._vin = vin
+        self._state = state
+        self._timestamp = timestamp
+        self._valid = valid
+
+    def __str__(self):
+        return json.dumps({ 
+            "name" : self._name,
+            "vin" : self._vin,
+            "version" : self._version,
+            "href" : self._href,
+            "state" : self._state,
+            "timestamp" : self._timestamp,
+            "valid" : self._valid,
+            })
 
     def getJson(self):
         return ({ 
-            "name" : self.name,
-            "version" : self.version,
-            "href" : self.href,
-            "status" : self.status,
-            "timestamp" : self.timestamp,
-            "valid" : self.valid,
+            "name" : self._name,
+            "vin" : self._vin,
+            "version" : self._version,
+            "href" : self._href,
+            "state" : self._state,
+            "timestamp" : self._timestamp,
+            "valid" : self._valid,
             })
 
-class MercedesMeResourcesDB:
+    def name(self):
+        """Return the name of the sensor."""
+        return self._vin + "_" + self._name
 
-    database = { }
-    config = None
+    def state(self):
+        """Return state for the sensor."""
+        return self._state
+
+    def device_state_attributes(self):
+        """Return attributes for the sensor."""
+        return ({
+                "valid": self._valid,
+                "timestamp": self._timestamp,
+                })
+
+    def update(self):
+        """Fetch new state data for the sensor."""
+        resName = self._name
+        resURL = URL_RES_PREFIX + self._href
+        result = GetResource(resName, resURL, self._config)
+        if not "reason" in result:
+            self._valid = True
+            self._timestamp = result[resName]["timestamp"]
+            self._state = result[resName]["value"]
+
+class MercedesMeResources:
 
     ########################
     # Init
     ########################
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, mercedesConfig):
+
+        self.database = []
+        self.mercedesConfig = mercedesConfig
 
     ########################
     # Read Resources
@@ -54,12 +92,12 @@ class MercedesMeResourcesDB:
         found = False
         resources = None
 
-        if not os.path.isfile(self.config.resources_file):
+        if not os.path.isfile(self.mercedesConfig.resources_file):
             # Resources File not present - Retriving new one from server
-            logger.error ("Resource File missing - Creating a new one.")
+            _LOGGER.error ("Resource File missing - Creating a new one.")
             found = False
         else:
-            with open(self.config.resources_file, 'r') as file:
+            with open(self.mercedesConfig.resources_file, 'r') as file:
                 try:
                     resources = json.load(file)
                     if (not self.CheckResources(resources)):
@@ -67,7 +105,7 @@ class MercedesMeResourcesDB:
                     else:
                         found = True
                 except ValueError:
-                    logger.error ("Error reading resource file - Creating a new one.")
+                    _LOGGER.error ("Error reading resource file - Creating a new one.")
                     found = False
 
         if ( not found ):
@@ -75,7 +113,7 @@ class MercedesMeResourcesDB:
             resources = self.RetriveResourcesList()
             if( resources == None ):
                 # Not found or wrong
-                logger.error ("Error retriving resource list.")
+                _LOGGER.error ("Error retriving resource list.")
                 return False
             else:
                 # import and write
@@ -92,16 +130,16 @@ class MercedesMeResourcesDB:
     ########################
     def CheckResources(self, resources):
         if "reason" in resources:
-            logger.error ("Error retriving available resources - " + resources["reason"] + " (" + str(resources["code"]) + ")")
+            _LOGGER.error ("Error retriving available resources - " + resources["reason"] + " (" + str(resources["code"]) + ")")
             return False
         if "error" in resources:
             if "error_description" in resources:
-                logger.error ("Error retriving resources: " + resources["error_description"])
+                _LOGGER.error ("Error retriving resources: " + resources["error_description"])
             else:
-                logger.error ("Error retriving resources: " + resources["error"])
+                _LOGGER.error ("Error retriving resources: " + resources["error"])
             return False
         if len(resources) == 0:
-            logger.error ("Empty resources found.")
+            _LOGGER.error ("Empty resources found.")
             return False
         return True
 
@@ -110,10 +148,10 @@ class MercedesMeResourcesDB:
     ########################
     def RetriveResourcesList(self):
         resName = "resources"
-        resURL = self.config.res_url_prefix + "/vehicles/" + self.config.vin + "/" + resName
-        resources = GetResource(resName, resURL, self.config)
+        resURL = URL_RES_PREFIX + "/vehicles/" + self.mercedesConfig.vin + "/" + resName
+        resources = GetResource(resName, resURL, self.mercedesConfig)
         if not self.CheckResources(resources):
-            logger.error ("Error retriving available resources")
+            _LOGGER.error ("Error retriving available resources")
             return None
         else:
             return resources
@@ -123,10 +161,10 @@ class MercedesMeResourcesDB:
     ########################
     def ImportResourcesList(self, resources):
         for res in resources:
-            if("status" in res):
-                self.database[res["name"]] = MercedesMeResource (res["name"], res["version"], res["href"], res["status"], res["timestamp"], res["valid"])
+            if("state" in res):
+                self.database.append( MercedesMeResource (res["name"], self.mercedesConfig.vin, res["version"], res["href"], res["state"], res["timestamp"], res["valid"]) )
             else:
-                self.database[res["name"]] = MercedesMeResource (res["name"], res["version"], res["href"])
+                self.database.append( MercedesMeResource (res["name"], self.mercedesConfig.vin, res["version"], res["href"]) )
 
     ########################
     # Write Resources File
@@ -135,9 +173,9 @@ class MercedesMeResourcesDB:
         output = []
         # Extract List
         for res in self.database:
-            output.append( self.database[res].getJson() )
+            output.append( res.getJson() )
         # Write File
-        with open(self.config.resources_file, 'w') as file:
+        with open(self.mercedesConfig.resources_file, 'w') as file:
             json.dump(output, file)
 
     ########################
@@ -146,30 +184,31 @@ class MercedesMeResourcesDB:
     def PrintAvailableResources(self):
         print ("Found %d resources" % len(self.database) + ":")
         for res in self.database:
-            print (self.database[res].name + ": " + self.config.res_url_prefix + self.database[res].href)
+            print (res._name + ": " + URL_RES_PREFIX + res._href)
 
     ########################
-    # Print Resources Status
+    # Print Resources State
     ########################
-    def PrintResourcesStatus(self, valid = True):
+    def PrintResourcesState(self, valid = True):
         for res in self.database:
-            if((not valid) | self.database[res].valid):
-                print (self.database[res].name + ":")
-                print ("\tvalid: " + str(self.database[res].valid))
-                print ("\tstatus: " + self.database[res].status)
-                print ("\ttimestamp: " + str(self.database[res].timestamp))
+            if((not valid) | res._valid):
+                print (res._name + ":")
+                print ("\tvalid: " + str(res._valid))
+                print ("\tstate: " + res._state)
+                print ("\ttimestamp: " + str(res._timestamp))
 
     ########################
-    # Update Resources Status
+    # Update Resources State
     ########################
-    def UpdateResourcesStatus(self):
+    def UpdateResourcesState(self):
+        _LOGGER.error("Update Resources")
         for res in self.database:
-            resName = self.database[res].name
-            resURL = self.config.res_url_prefix + self.database[res].href
-            result = GetResource(resName, resURL, self.config)
+            resName = res._name
+            resURL = URL_RES_PREFIX + res._href
+            result = GetResource(resName, resURL, self.mercedesConfig)
             if not "reason" in result:
-                self.database[res].valid = True
-                self.database[res].timestamp = result[resName]["timestamp"]
-                self.database[res].status = result[resName]["value"]
+                res._valid = True
+                res._timestamp = result[resName]["timestamp"]
+                res._state = result[resName]["value"]
         # Write Resource File
         self.WriteResourcesFile()

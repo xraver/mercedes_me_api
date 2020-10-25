@@ -1,4 +1,18 @@
+"""
+Mercedes Me APIs
+
+Author: G. Ravera
+
+For more details about this component, please refer to the documentation at
+https://github.com/xraver/mercedes_me_api/
+"""
+import logging
 import requests
+
+from const import *
+
+# Logger
+_LOGGER = logging.getLogger(__name__)
 
 ########################
 # GetResource
@@ -58,16 +72,16 @@ def GetToken(config, refresh=True, auth_code=""):
 
     if (not refresh):
         # New Token
-        data = "grant_type=authorization_code&code=" + auth_code + "&redirect_uri=" + config.redirect_uri
+        data = "grant_type=authorization_code&code=" + auth_code + "&redirect_uri=" + REDIRECT_URL
     else:
         # Refresh
         data = "grant_type=refresh_token&refresh_token=" + config.refresh_token
 
-    res = requests.post(config.oauth_url, data = data, headers = headers)
+    res = requests.post(URL_OAUTH, data = data, headers = headers)
     try:
         token = res.json()
     except ValueError:
-        logger.error ("Error retriving token " + str(res.status_code))
+        _LOGGER.error ("Error retriving token " + str(res.status_code))
         return None
 
     return token
