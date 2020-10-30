@@ -59,8 +59,6 @@ class MercedesMeConfig:
     access_token = ""
     refresh_token = ""
     token_expires_in = ""
-    oauth_url = URL_OAUTH
-    res_url_prefix = URL_RES_PREFIX
 
     ########################
     # Init
@@ -137,6 +135,9 @@ class MercedesMeConfig:
     # Check Token
     ########################
     def CheckToken(self, token):
+        if token == None:
+            _LOGGER.error ("Error reading token.")
+            return False
         if "error" in token:
             if "error_description" in token:
                 _LOGGER.error ("Error retriving token: " + token["error_description"])
@@ -158,8 +159,16 @@ class MercedesMeConfig:
     # Create Token
     ########################
     def CreateToken(self):
+
+        auth_url = (
+            f"{URL_OAUTH_AUTH}&" +
+            f"client_id={self.client_id}&" + 
+            f"redirect_uri={REDIRECT_URL}&" + 
+            f"scope={SCOPE}"
+        )
+
         print( "Open the browser and insert this link:\n" )
-        print( "https://id.mercedes-benz.com/as/authorization.oauth2?response_type=code&client_id=" + self.client_id + "&redirect_uri=" + REDIRECT_URL + "&scope=" + SCOPE + "\n")
+        print(auth_url + "\n")
         print( "Copy the code in the url:")
         auth_code = input()
 

@@ -15,7 +15,9 @@ CREDENTIAL_FILE = ".mercedesme_credentials"
 RESOURCES_FILE = ".mercedesme_resources"
 REDIRECT_URL = "https://localhost"
 SCOPE = "mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20offline_access"
-URL_OAUTH = "https://id.mercedes-benz.com/as/token.oauth2"
+URL_OAUTH_BASE = "https://id.mercedes-benz.com/as"
+URL_OAUTH_AUTH = URL_OAUTH_BASE + "/authorization.oauth2?response_type=code"
+URL_OAUTH_TOKEN = URL_OAUTH_BASE + "/token.oauth2"
 URL_RES_PREFIX = "https://api.mercedes-benz.com/vehicledata/v2"
 
 # File Parameters

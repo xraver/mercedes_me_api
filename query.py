@@ -77,7 +77,7 @@ def GetToken(config, refresh=True, auth_code=""):
         # Refresh
         data = "grant_type=refresh_token&refresh_token=" + config.refresh_token
 
-    res = requests.post(URL_OAUTH, data = data, headers = headers)
+    res = requests.post(URL_OAUTH_TOKEN, data = data, headers = headers)
     try:
         token = res.json()
     except ValueError:
