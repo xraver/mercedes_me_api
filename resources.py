@@ -11,8 +11,8 @@ import json
 import os
 
 from config import MercedesMeConfig
-from query import GetResource
 from const import *
+from query import *
 
 # Logger
 _LOGGER = logging.getLogger(__name__)
@@ -66,13 +66,11 @@ class MercedesMeResource:
 
     def update(self):
         """Fetch new state data for the sensor."""
-        resName = self._name
-        resURL = URL_RES_PREFIX + self._href
-        result = GetResource(resName, resURL, self._config)
+        result = GetResource(URL_RES_PREFIX + self._href, self._config)
         if not "reason" in result:
             self._valid = True
-            self._timestamp = result[resName]["timestamp"]
-            self._state = result[resName]["value"]
+            self._timestamp = result[self._name]["timestamp"]
+            self._state = result[self._name]["value"]
 
 class MercedesMeResources:
 
@@ -82,6 +80,7 @@ class MercedesMeResources:
     def __init__(self, mercedesConfig):
 
         self.database = []
+        self.resources_file = RESOURCES_FILE
         self.mercedesConfig = mercedesConfig
 
     ########################
@@ -92,12 +91,12 @@ class MercedesMeResources:
         found = False
         resources = None
 
-        if not os.path.isfile(self.mercedesConfig.resources_file):
+        if not os.path.isfile(self.resources_file):
             # Resources File not present - Retriving new one from server
             _LOGGER.error ("Resource File missing - Creating a new one.")
             found = False
         else:
-            with open(self.mercedesConfig.resources_file, 'r') as file:
+            with open(self.resources_file, 'r') as file:
                 try:
                     resources = json.load(file)
                     if (not self.CheckResources(resources)):
@@ -147,9 +146,8 @@ class MercedesMeResources:
     # Retrive Resources List
     ########################
     def RetriveResourcesList(self):
-        resName = "resources"
-        resURL = URL_RES_PREFIX + "/vehicles/" + self.mercedesConfig.vin + "/" + resName
-        resources = GetResource(resName, resURL, self.mercedesConfig)
+        resURL = URL_RES_PREFIX + "/vehicles/" + self.mercedesConfig.vin + "/resources"
+        resources = GetResource(resURL, self.mercedesConfig)
         if not self.CheckResources(resources):
             _LOGGER.error ("Error retriving available resources")
             return None
@@ -175,7 +173,7 @@ class MercedesMeResources:
         for res in self.database:
             output.append( res.getJson() )
         # Write File
-        with open(self.mercedesConfig.resources_file, 'w') as file:
+        with open(self.resources_file, 'w') as file:
             json.dump(output, file)
 
     ########################
@@ -202,12 +200,10 @@ class MercedesMeResources:
     ########################
     def UpdateResourcesState(self):
         for res in self.database:
-            resName = res._name
-            resURL = URL_RES_PREFIX + res._href
-            result = GetResource(resName, resURL, self.mercedesConfig)
+            result = GetResource(URL_RES_PREFIX + res._href, self.mercedesConfig)
             if not "reason" in result:
                 res._valid = True
-                res._timestamp = result[resName]["timestamp"]
-                res._state = result[resName]["value"]
+                res._timestamp = result[res._name]["timestamp"]
+                res._state = result[res._name]["value"]
         # Write Resource File
         self.WriteResourcesFile()

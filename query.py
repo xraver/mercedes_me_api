@@ -17,12 +17,12 @@ _LOGGER = logging.getLogger(__name__)
 ########################
 # GetResource
 ########################
-def GetResource(resourceName, resourceURL, config):
+def GetResource(resourceURL, config):
 
     # Set Header
     headers = {
         "accept": "application/json;charset=utf-8", 
-        "authorization": "Bearer "+ config.access_token
+        "authorization": "Bearer "+ config.token.access_token
     }
 
     # Send Request
@@ -64,24 +64,30 @@ def GetResource(resourceName, resourceURL, config):
 ########################
 # GetToken
 ########################
-def GetToken(config, refresh=True, auth_code=""):
-    headers = {
-        "Authorization": "Basic " + config.base64,
-        "content-type": "application/x-www-form-urlencoded"
-    }
-
-    if (not refresh):
-        # New Token
-        data = "grant_type=authorization_code&code=" + auth_code + "&redirect_uri=" + REDIRECT_URL
-    else:
-        # Refresh
-        data = "grant_type=refresh_token&refresh_token=" + config.refresh_token
-
-    res = requests.post(URL_OAUTH_TOKEN, data = data, headers = headers)
+def GetToken(tokenURL, headers, data):
+    res = requests.post(tokenURL, data = data, headers = headers)
     try:
-        token = res.json()
+        data = res.json()
     except ValueError:
         _LOGGER.error ("Error retriving token " + str(res.status_code))
-        return None
+        data = { "reason": "No Data",
+                 "code" : res.status_code 
+        }
 
-    return token
+    # Check Error
+    if not res.ok:
+        if ("reason" in data):
+            reason = data["reason"]
+        else:
+            if res.status_code == 302:
+                reason = "The request scope is invalid"
+            elif res.status_code == 400:
+                reason = "The redirect_uri differs from the registered one"
+            elif res.status_code == 401:
+                reason = "The specified client ID is invalid"
+            else:
+                reason = "Generic Error"
+        data["reason"] = reason
+        data["code"] = res.status_code
+
+    return data

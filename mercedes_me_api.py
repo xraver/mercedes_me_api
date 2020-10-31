@@ -59,13 +59,13 @@ if __name__ == "__main__":
 
     # Create Token
     if (args.token == True):
-        if not data.mercedesConfig.CreateToken():
+        if not data.mercedesConfig.token.CreateToken():
             _LOGGER.error ("Error creating token")
             exit (1)
 
     # Refresh Token
     if (args.refresh == True):
-        if not data.mercedesConfig.RefreshToken():
+        if not data.mercedesConfig.token.RefreshToken():
             _LOGGER.error ("Error refreshing token")
             exit (1)
             

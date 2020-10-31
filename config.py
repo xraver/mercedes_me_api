@@ -7,16 +7,10 @@ For more details about this component, please refer to the documentation at
 https://github.com/xraver/mercedes_me_api/
 """
 from configobj import ConfigObj
-import base64
-import json
 import logging
 import os
-import requests
 
-from query import (
-	GetResource,
-	GetToken
-)
+from oauth import MercedesMeOauth
 from const import *
 
 # Logger
@@ -24,25 +18,14 @@ _LOGGER = logging.getLogger(__name__)
 
 class MercedesMeConfig:
 
-    token_file = ""
-    credentials_file = ""
-    resources_file = ""
-    client_id = ""
-    client_secret = ""
-    vin = ""
-    base64 = ""
-    access_token = ""
-    refresh_token = ""
-    token_expires_in = ""
-
     ########################
     # Init
     ########################
     def __init__(self):
-        # Files
-        self.token_file = TOKEN_FILE
         self.credentials_file = CREDENTIAL_FILE
-        self.resources_file = RESOURCES_FILE
+        self.client_id = ""
+        self.client_secret = ""
+        self.vin = ""
 
     ########################
     # Read Configuration
@@ -50,7 +33,7 @@ class MercedesMeConfig:
     def ReadConfig(self):
         needToRefresh = False
 
-        # Read credentials from file
+        # Read Credentials from file
         if not os.path.isfile(self.credentials_file):
             _LOGGER.error ("Credential File " + self.credentials_file + " not found")
             return False
@@ -74,117 +57,8 @@ class MercedesMeConfig:
         if not self.vin:
             _LOGGER.error ("No "+ CONF_VEHICLE_ID + " found in the configuration")
             return False
-        # Base64
-        b64_str = self.client_id + ":" + self.client_secret
-        b64_bytes = base64.b64encode( b64_str.encode('ascii') )
-        self.base64 = b64_bytes.decode('ascii')
 
         # Read Token
-        if not os.path.isfile(self.token_file):
-            _LOGGER.error ("Token File missing - Creating a new one")
-            if (not self.CreateToken()):
-                _LOGGER.error ("Error creating token")
-                return False
-        else:
-            with open(self.token_file, 'r') as file:
-                try:
-                    token = json.load(file)
-                except ValueError:
-                    token = None
-                if self.CheckToken(token):
-                    # Save Token
-                    self.access_token = token['access_token']
-                    self.refresh_token = token['refresh_token']
-                    self.token_expires_in = token['expires_in']
-                    needToRefresh = True
-                else:
-                    _LOGGER.error ("Token File not correct - Creating a new one")
-                    if (not self.CreateToken()):
-                        _LOGGER.error ("Error creating token")
-                        return False
-
-        if (needToRefresh):
-            if (not self.RefreshToken()):
-                _LOGGER.error ("Error refreshing token")
-                return False
-
-        return True
-
-    ########################
-    # Write Token
-    ########################
-    def WriteToken(self, token):
-        with open(self.token_file, 'w') as file:
-            json.dump(token, file)
-
-    ########################
-    # Check Token
-    ########################
-    def CheckToken(self, token):
-        if token == None:
-            _LOGGER.error ("Error reading token.")
-            return False
-        if "error" in token:
-            if "error_description" in token:
-                _LOGGER.error ("Error retriving token: " + token["error_description"])
-            else:
-                _LOGGER.error ("Error retriving token: " + token["error"])
-            return False
-        if len(token) == 0:
-            _LOGGER.error ("Empty token found.")
-            return False
-        if not 'access_token' in token:
-            _LOGGER.error ("Access token not present.")
-            return False
-        if not 'refresh_token' in token:
-            _LOGGER.error ("Refresh token not present.")
-            return False
-        return True
-
-    ########################
-    # Create Token
-    ########################
-    def CreateToken(self):
-
-        auth_url = (
-            f"{URL_OAUTH_AUTH}&" +
-            f"client_id={self.client_id}&" + 
-            f"redirect_uri={REDIRECT_URL}&" + 
-            f"scope={SCOPE}"
-        )
-
-        print( "Open the browser and insert this link:\n" )
-        print(auth_url + "\n")
-        print( "Copy the code in the url:")
-        auth_code = input()
-
-        token = GetToken(self, refresh=False, auth_code=auth_code)
-
-        # Check Token
-        if not self.CheckToken(token):
-            return False
-        else:
-            # Save Token
-            self.WriteToken(token)
-            self.access_token = token['access_token']
-            self.refresh_token = token['refresh_token']
-            self.token_expires_in = token['expires_in']
-            return True
-
-    ########################
-    # Refresh Token
-    ########################
-    def RefreshToken(self):
-
-        token = GetToken(self, refresh=True)
-
-        # Check Token
-        if not self.CheckToken(token):
-            return False
-        else:
-            # Save Token
-            self.WriteToken(token)
-            self.access_token = token['access_token']
-            self.refresh_token = token['refresh_token']
-            self.token_expires_in = token['expires_in']
+        self.token = MercedesMeOauth(self.client_id, self.client_secret)
+        self.token.ReadToken()
         return True
