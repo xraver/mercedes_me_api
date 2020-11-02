@@ -22,17 +22,19 @@ _LOGGER = logging.getLogger(__name__)
 
 class MercedesMeOauth:
 
-    token_file = ""
-    headers = ""
-    access_token = ""
-    refresh_token = ""
-    token_expires_in = ""
-
     ########################
     # Init
     ########################
     def __init__(self, client_id, client_secret):
+        # Access Token
+        self.access_token = ""
+        # Refresh Token
+        self.refresh_token = ""
+        # Expiration Time
+        self.token_expires_in = ""
+        # Client ID
         self.client_id = client_id
+        # Client Secret
         self.client_secret = client_secret
         # Token File
         self.token_file = TOKEN_FILE

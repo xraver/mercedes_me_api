@@ -26,6 +26,7 @@ class MercedesMeConfig:
         self.client_id = ""
         self.client_secret = ""
         self.vin = ""
+        self.token = ""
 
     ########################
     # Read Configuration
@@ -57,8 +58,9 @@ class MercedesMeConfig:
         if not self.vin:
             _LOGGER.error ("No "+ CONF_VEHICLE_ID + " found in the configuration")
             return False
-
         # Read Token
         self.token = MercedesMeOauth(self.client_id, self.client_secret)
-        self.token.ReadToken()
+        if not self.token.ReadToken()
+            return False
+        
         return True
