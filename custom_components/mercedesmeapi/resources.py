@@ -14,8 +14,8 @@ import os
 from homeassistant.helpers.entity import Entity
 
 from .config import MercedesMeConfig
-from .query import GetResource
 from .const import *
+from .query import *
 
 # Logger
 _LOGGER = logging.getLogger(__name__)
@@ -26,7 +26,6 @@ class MercedesMeResource (Entity):
         self._version = version
         self._href = href
         self._vin = vin
-        self._vin = "mercedes" # GRGR -> test
         self._state = state
         self._timestamp = timestamp
         self._valid = valid
@@ -85,6 +84,7 @@ class MercedesMeResources:
 
         self.database = []
         self.mercedesConfig = mercedesConfig
+        self.resources_file = mercedesConfig.hass.config.path(RESOURCES_FILE)
 
     ########################
     # Read Resources
@@ -94,12 +94,12 @@ class MercedesMeResources:
         found = False
         resources = None
 
-        if not os.path.isfile(self.mercedesConfig.resources_file):
+        if not os.path.isfile(self.resources_file):
             # Resources File not present - Retriving new one from server
             _LOGGER.error ("Resource File missing - Creating a new one.")
             found = False
         else:
-            with open(self.mercedesConfig.resources_file, 'r') as file:
+            with open(self.resources_file, 'r') as file:
                 try:
                     resources = json.load(file)
                     if (not self.CheckResources(resources)):
@@ -149,9 +149,8 @@ class MercedesMeResources:
     # Retrive Resources List
     ########################
     def RetriveResourcesList(self):
-        resName = "resources"
-        resURL = URL_RES_PREFIX + "/vehicles/" + self.mercedesConfig.vin + "/" + resName
-        resources = GetResource(resName, resURL, self.mercedesConfig)
+        resURL = URL_RES_PREFIX + "/vehicles/" + self.mercedesConfig.vin + "/resources"
+        resources = GetResource(resURL, self.mercedesConfig)
         if not self.CheckResources(resources):
             _LOGGER.error ("Error retriving available resources")
             return None
@@ -177,7 +176,7 @@ class MercedesMeResources:
         for res in self.database:
             output.append( res.getJson() )
         # Write File
-        with open(self.mercedesConfig.resources_file, 'w') as file:
+        with open(self.resources_file, 'w') as file:
             json.dump(output, file)
 
     ########################
@@ -204,12 +203,10 @@ class MercedesMeResources:
     ########################
     def UpdateResourcesState(self):
         for res in self.database:
-            resName = res._name
-            resURL = URL_RES_PREFIX + res._href
-            result = GetResource(resName, resURL, self.mercedesConfig)
+            result = GetResource(URL_RES_PREFIX + res._href, self.mercedesConfig)
             if not "reason" in result:
                 res._valid = True
-                res._timestamp = result[resName]["timestamp"]
-                res._state = result[resName]["value"]
+                res._timestamp = result[res._name]["timestamp"]
+                res._state = result[res._name]["value"]
         # Write Resource File
         self.WriteResourcesFile()

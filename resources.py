@@ -80,8 +80,8 @@ class MercedesMeResources:
     def __init__(self, mercedesConfig):
 
         self.database = []
-        self.resources_file = RESOURCES_FILE
         self.mercedesConfig = mercedesConfig
+        self.resources_file = RESOURCES_FILE
 
     ########################
     # Read Resources

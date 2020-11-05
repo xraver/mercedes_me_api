@@ -10,6 +10,7 @@ from datetime import timedelta
 import logging
 
 from .config import MercedesMeConfig
+from .oauth import MercedesMeOauth
 from .resources import MercedesMeResources
 from .const import *
 
@@ -37,11 +38,11 @@ class MercedesMeData:
         _LOGGER.debug ("End Update")
 
     ########################
-    # Update State
+    # Update Token
     ########################
     def UpdateToken(self, event_time):
         _LOGGER.debug ("Start Refresh Token")
-        self.mercedesConfig.RefreshToken()
+        self.mercedesConfig.token.RefreshToken()
         #hass.helpers.dispatcher.dispatcher_send(UPDATE_SIGNAL)
         _LOGGER.debug ("End Refresh Token")
 
@@ -73,6 +74,6 @@ def setup(hass, config):
     hass.helpers.event.track_time_interval(data.UpdateState, timedelta(seconds=data.mercedesConfig.scan_interval))
 
     # Create Task to Update Token
-    hass.helpers.event.track_time_interval(data.UpdateToken, timedelta(seconds=data.mercedesConfig.token_expires_in))
+    hass.helpers.event.track_time_interval(data.UpdateToken, timedelta(seconds=data.mercedesConfig.token.token_expires_in))
 
     return True

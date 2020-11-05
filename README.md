@@ -16,7 +16,9 @@ Note2: only one car is supported for the moment.
 The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate sensors of a Mercedes Benz car.
 This component is still in development.
 ### Open Points
-- Fix OAUTH2 Authentication & Get the First Token
+- Complete OAUTH2 Authentication & Get the First Token
+- Get state after starts -> now it waits <scan_interval> seconds.
+- Config Flow for automatic configuration
 - Log Management
 - Bugfix & Software optimizations
 
