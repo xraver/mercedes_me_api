@@ -19,6 +19,7 @@ This component is still in development.
 - Complete OAUTH2 Authentication & Get the First Token
 - Get state after starts -> now it waits <scan_interval> seconds.
 - Config Flow for automatic configuration
+- HACS
 - Log Management
 - Bugfix & Software optimizations
 
