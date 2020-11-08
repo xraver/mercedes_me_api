@@ -1,14 +1,10 @@
 {
     "domain": "mercedesmeapi",
-    "name": "Mercedes Me Api",
-    "documentation": "https://github.com/xraver/mercedes_me_api",
-    "dependencies": [],
+    "name": "Mercedes Me API",
+    "documentation": "https://github.com/xraver/mercedes_me_api/blob/master/README.md",
+    "issue_tracker": "https://github.com/xraver/mercedes_me_api/issues",
     "config_flow": false,
-    "codeowners": [
-      "@xraver"
-    ],
-    "requirements": [
-      "requests"
-    ],
+    "codeowners": [ "@xraver" ],
+    "requirements": [ "requests" ],
     "homeassistant": "0.100.0"
   }
