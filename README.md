@@ -5,7 +5,7 @@
 [![hacs][hacs-img]][hacs-url]
 [![BuyMeCoffee][buymecoffee-img]][buymecoffee-url]
 
-Script to interface with Mercedes Me APIs
+Script to use Mercedes Me APIs.
 
 ## Pre-Requirements
 1) Own a Mercedes Benz Car with Mercedes Me installed and working.
