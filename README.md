@@ -1,9 +1,9 @@
 # mercedes_me_api 
-[![License Status](https://img.shields.io/github/license/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/blob/master/LICENSE) 
-[![Release Status](https://img.shields.io/github/v/release/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/releases) 
-[![Last Commit](https://img.shields.io/github/last-commit/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/commits/master)
-[![hacs](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
-[![BuyMeCoffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://www.buymeacoffee.com/xraver)
+[![License Status][license-img]][license-url]
+[![Releases][releases-img]][releases-url]
+[![Last Commit][last-commit-img]][last-commit-url]
+[![hacs][hacs-img]][hacs-url]
+[![BuyMeCoffee][buymecoffee-img]][buymecoffee-url]
 
 Script to interface with Mercedes Me APIs
 
@@ -95,4 +95,17 @@ The possible arguments are:
 [MIT](http://opensource.org/licenses/MIT) © Giorgio Ravera
 
 ## Donate
-If you want you can ![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)[Buy me a coffee](https://www.buymeacoffee.com/xraver)![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)!
+If you want you can ![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)[Buy me a coffee][buymecoffee-url]![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)!
+
+---
+
+[license-img]: https://img.shields.io/github/license/xraver/mercedes_me_api
+[license-url]: LICENSE
+[releases-img]: https://img.shields.io/github/v/release/xraver/mercedes_me_api
+[releases-url]: https://github.com/xraver/mercedes_me_api/releases
+[last-commit-img]: https://img.shields.io/github/last-commit/xraver/mercedes_me_api
+[last-commit-url]: https://github.com/xraver/mercedes_me_api/commits/master
+[hacs-img]: https://img.shields.io/badge/HACS-Default-orange.svg
+[hacs-url]: https://github.com/custom-components/hacs
+[buymecoffee-img]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg
+[buymecoffee-url]: https://www.buymeacoffee.com/xraver
