@@ -1,4 +1,10 @@
-# mercedes_me_api [![License Status](https://img.shields.io/github/license/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/blob/master/LICENSE) [![Tag Status](https://img.shields.io/github/v/tag/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/tags) [![Last Commit](https://img.shields.io/github/last-commit/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/commits/master)
+# mercedes_me_api 
+[![License Status](https://img.shields.io/github/license/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/blob/master/LICENSE) 
+[![Release Status](https://img.shields.io/github/v/release/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/releases) 
+[![Last Commit](https://img.shields.io/github/last-commit/xraver/mercedes_me_api)](https://github.com/xraver/mercedes_me_api/commits/master)
+[![hacs](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+[![BuyMeCoffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg)](https://www.buymeacoffee.com/xraver)
+
 Script to interface with Mercedes Me APIs
 
 ## Pre-Requirements
@@ -89,6 +95,4 @@ The possible arguments are:
 [MIT](http://opensource.org/licenses/MIT) © Giorgio Ravera
 
 ## Donate
-If you want to offer me a coffee:
-
-[![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=giorgio.ravera%40gmail.com&currency_code=EUR)
+If you want you can ![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)[Buy me a coffee](https://www.buymeacoffee.com/xraver)![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)!
