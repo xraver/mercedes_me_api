@@ -95,7 +95,7 @@ The possible arguments are:
 [MIT](http://opensource.org/licenses/MIT) © Giorgio Ravera
 
 ## Donate
-If you want you can ![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)[Buy me a coffee][buymecoffee-url]![Buy me a coffee](https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg)!
+[![BuyMeCoffee][buymecoffee-button]][buymecoffee-url]
 
 ---
 
@@ -108,4 +108,5 @@ If you want you can ![Buy me a coffee](https://www.buymeacoffee.com/assets/img/B
 [hacs-img]: https://img.shields.io/badge/HACS-Default-orange.svg
 [hacs-url]: https://github.com/custom-components/hacs
 [buymecoffee-img]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg
+[buymecoffee-button]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
 [buymecoffee-url]: https://www.buymeacoffee.com/xraver
