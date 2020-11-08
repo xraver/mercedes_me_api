@@ -22,7 +22,7 @@ Note2: only one car is supported for the moment.
 - Complete OAUTH2 Authentication & Get the First Token
 - Get state after starts -> now it waits <scan_interval> seconds.
 - Config Flow for automatic configuration
-- HACS
+- ~~HACS~~
 - Log Management
 - Bugfix & Software optimizations
 
