@@ -105,7 +105,7 @@ The possible arguments are:
 [releases-url]: https://github.com/xraver/mercedes_me_api/releases
 [last-commit-img]: https://img.shields.io/github/last-commit/xraver/mercedes_me_api
 [last-commit-url]: https://github.com/xraver/mercedes_me_api/commits/master
-[hacs-img]: https://img.shields.io/badge/HACS-Default-orange.svg
+[hacs-img]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [hacs-url]: https://github.com/custom-components/hacs
 [buymecoffee-img]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg
 [buymecoffee-button]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg

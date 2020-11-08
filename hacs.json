@@ -1,5 +1,7 @@
 {
-    "name": "MercedesMeApi",
+    "name": "Mercedes Me Api",
     "domains": ["sensor"],
-    "iot_class": "Cloud Pull"
+    "render_readme": false,
+    "homeassistant": "0.100.0",
+    "iot_class": ["Cloud Polling"]
 }
