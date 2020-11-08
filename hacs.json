@@ -1,0 +1,5 @@
+{
+    "name": "MercedesMeApi",
+    "domains": ["sensor"],
+    "iot_class": "Cloud Pull"
+}
