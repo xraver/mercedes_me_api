@@ -19,7 +19,7 @@ Note: the APIs described above do not requires any subscription in case you use 
 Note2: only one car is supported for the moment.
 
 ## Home Assistant Custom Component
-The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes Me APIs](https://developer.mercedes-benz.com/products).
+The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes Me API](https://developer.mercedes-benz.com/products).
 This component is still in development.
 ### Open Points
 - Complete OAUTH2 Authentication & Get the First Token
