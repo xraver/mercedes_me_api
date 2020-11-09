@@ -86,8 +86,8 @@ Example:  mercedes_me_api.sh --token --fuel
      or:  mercedes_me_api.sh -l
 
 The possible arguments are:
-    -t, --token        Procedure to obtatin the Access Token (stored into .mercedes_token)
-    -r, --refresh      Procedure to refresh the Access Token (stored into .mercedes_token)
+    -t, --token        Procedure to obtatin the Access Token (stored into .mercedesme_token)
+    -r, --refresh      Procedure to refresh the Access Token (stored into .mercedesme_token)
     -f, --fuel         Retrive the Fuel Status of your Vehicle
     -l, --lock         Retrive the Lock Status of your Vehicle
     -s, --status       Retrive the General Status of your Vehicle
