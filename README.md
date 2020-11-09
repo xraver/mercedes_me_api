@@ -54,7 +54,7 @@ The installation is the same, the usage is different.
 ## Installation
 To use this script it's necessary to perform the following instructions:
 1) clone the repository
-2) create a credentials files (.mercedes_credentials) with:
+2) create a credentials files (.mercedesme_credentials) with:
 ```bash
 CLIENT_ID=<**INSERT_YOUR_CLIENT_ID**>
 CLIENT_SECRET=<**INSERT_YOUR_CLIENT_SECRET**>
