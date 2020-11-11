@@ -25,7 +25,6 @@ This component is still in development.
 - Complete OAUTH2 Authentication & Get the First Token
 - Get state after starts -> now it waits <scan_interval> seconds.
 - Config Flow for automatic configuration
-- ~~HACS~~
 - Log Management
 - Bugfix & Software optimizations
 
@@ -114,4 +113,4 @@ You can find change log under [releases][releases-url]
 [hacs-url]: https://github.com/custom-components/hacs
 [buymecoffee-img]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg
 [buymecoffee-button]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
-[buymecoffee-url]: https://www.buymeacoffee.com/xraver
+[buymecoffee-url]: https://www.buymeacoffee.com/raverag
