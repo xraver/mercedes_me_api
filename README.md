@@ -8,18 +8,18 @@
 Script to use Mercedes Me APIs.
 
 ## Pre-Requirements
-1) Own a Mercedes Benz Car with Mercedes Me installed and working.
+1) Own a Mercedes-Benz Car with Mercedes me connect installed and working.
 2) Create an application in https://developer.mercedes-benz.com/
 3) Register to the following APIs:
    - [Fuel Status](https://developer.mercedes-benz.com/products/fuel_status)
    - [Vehicle Lock Status](https://developer.mercedes-benz.com/products/vehicle_lock_status)
    - [Vehicle Status](https://developer.mercedes-benz.com/products/vehicle_status)
 
-Note: the APIs described above do not requires any subscription in case you use them with your own car associated the the Mercedes Me Account.
+Note: the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
 Note2: only one car is supported for the moment.
 
 ## Home Assistant Custom Component
-The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes Me API](https://developer.mercedes-benz.com/products).
+The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes me API](https://developer.mercedes-benz.com/products).
 This component is still in development.
 ### Open Points
 - Complete OAUTH2 Authentication & Get the First Token
@@ -43,7 +43,7 @@ mercedesmeapi:
   vehicle_id: <**INSERT_YOUR_VEHICLE_ID**>
   scan_interval: <** TIME PERIOD TO REFRESH RESOURCES **>
 ```
-2) Actually it's not possible to retrive the Token from scratch. Please use the other script to retrive the first token and copy it into hacs folder (.mercedesme_token)
+2) Actually it's not possible to retrieve the token from scratch. Please use the other script to retrieve the first token and copy it into hacs folder (.mercedesme_token)
 
 ## Shell Scripts
 There are two shell script:
@@ -70,10 +70,10 @@ usage: mercedes_me_api.py [-h] [-t] [-r] [-s] [-R] [-v]
 
 optional arguments:
   -h, --help       show this help message and exit
-  -t, --token      Procedure to obtatin the Access Token
+  -t, --token      Procedure to obtain the Access Token
   -r, --refresh    Procedure to refresh the Access Token
-  -s, --status     Retrive the Status of your Vehicle
-  -R, --resources  Retrive the list of available resources of your Vehicle
+  -s, --status     Retrieve the status of your vehicle
+  -R, --resources  Retrieve the list of available resources of your vehicle
   -v, --version    show program's version number and exit
 ```
 
