@@ -54,7 +54,7 @@ The installation is the same, the usage is different.
 ## Installation
 To use this script it's necessary to perform the following instructions:
 1) clone the repository
-2) create a credentials files (.mercedes_credentials) with:
+2) create a credentials files (.mercedesme_credentials) with:
 ```bash
 CLIENT_ID=<**INSERT_YOUR_CLIENT_ID**>
 CLIENT_SECRET=<**INSERT_YOUR_CLIENT_SECRET**>
@@ -86,11 +86,11 @@ Example:  mercedes_me_api.sh --token --fuel
      or:  mercedes_me_api.sh -l
 
 The possible arguments are:
-    -t, --token        Procedure to obtain the Access Token (stored into .mercedes_token)
-    -r, --refresh      Procedure to refresh the Access Token (stored into .mercedes_token)
-    -f, --fuel         Retrieve the Fuel Status of your vehicle
-    -l, --lock         Retrieve the Lock Status of your vehicle
-    -s, --status       Retrieve the General Status of your vehicle
+    -t, --token        Procedure to obtatin the Access Token (stored into .mercedesme_token)
+    -r, --refresh      Procedure to refresh the Access Token (stored into .mercedesme_token)
+    -f, --fuel         Retrive the Fuel Status of your Vehicle
+    -l, --lock         Retrive the Lock Status of your Vehicle
+    -s, --status       Retrive the General Status of your Vehicle
 ```
 
 ## Change Log
