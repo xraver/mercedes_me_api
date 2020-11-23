@@ -6,7 +6,7 @@ Author: G. Ravera
 For more details about this component, please refer to the documentation at
 https://github.com/xraver/mercedes_me_api/
 """
-from datetime import timedelta
+from datetime import datetime
 import logging
 import json
 import os
@@ -29,6 +29,10 @@ class MercedesMeResource (Entity):
         self._state = state
         self._timestamp = timestamp
         self._valid = valid
+        if(timestamp != None):
+            self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
+        else:
+            self._lastupdate = 0
 
     def __str__(self):
         return json.dumps({ 
@@ -52,6 +56,13 @@ class MercedesMeResource (Entity):
             "valid" : self._valid,
             })
 
+    def UpdateState(self, state, timestamp):
+        """Update status of the resource."""
+        self._state = state
+        self._timestamp = timestamp
+        self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
+        self._valid = True
+
     @property
     def name(self):
         """Return the name of the sensor."""
@@ -68,6 +79,7 @@ class MercedesMeResource (Entity):
         return ({
                 "valid": self._valid,
                 "timestamp": self._timestamp,
+				"last_update": self._lastupdate,
                 })
 
 #    @property
@@ -197,6 +209,7 @@ class MercedesMeResources:
                 print ("\tvalid: " + str(res._valid))
                 print ("\tstate: " + res._state)
                 print ("\ttimestamp: " + str(res._timestamp))
+                print ("\tlast_update: " + str(res._lastupdate))
 
     ########################
     # Update Resources State
@@ -205,8 +218,6 @@ class MercedesMeResources:
         for res in self.database:
             result = GetResource(URL_RES_PREFIX + res._href, self.mercedesConfig)
             if not "reason" in result:
-                res._valid = True
-                res._timestamp = result[res._name]["timestamp"]
-                res._state = result[res._name]["value"]
+                res.UpdateState(result[res._name]["value"], result[res._name]["timestamp"])
         # Write Resource File
         self.WriteResourcesFile()
