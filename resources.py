@@ -6,6 +6,7 @@ Author: G. Ravera
 For more details about this component, please refer to the documentation at
 https://github.com/xraver/mercedes_me_api/
 """
+from datetime import datetime
 import logging
 import json
 import os
@@ -26,6 +27,10 @@ class MercedesMeResource:
         self._state = state
         self._timestamp = timestamp
         self._valid = valid
+        if(timestamp != None):
+            self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
+        else:
+            self._lastupdate = 0
 
     def __str__(self):
         return json.dumps({ 
@@ -49,6 +54,13 @@ class MercedesMeResource:
             "valid" : self._valid,
             })
 
+    def UpdateState(self, state, timestamp):
+        """Update status of the resource."""
+        self._state = state
+        self._timestamp = timestamp
+        self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
+        self._valid = True
+
     def name(self):
         """Return the name of the sensor."""
         return self._vin + "_" + self._name
@@ -62,15 +74,17 @@ class MercedesMeResource:
         return ({
                 "valid": self._valid,
                 "timestamp": self._timestamp,
+				"last_update": self._lastupdate,
                 })
 
     def update(self):
         """Fetch new state data for the sensor."""
         result = GetResource(URL_RES_PREFIX + self._href, self._config)
         if not "reason" in result:
-            self._valid = True
-            self._timestamp = result[self._name]["timestamp"]
             self._state = result[self._name]["value"]
+            self._timestamp = result[self._name]["timestamp"]
+            self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
+            self._valid = True
 
 class MercedesMeResources:
 
@@ -194,6 +208,7 @@ class MercedesMeResources:
                 print ("\tvalid: " + str(res._valid))
                 print ("\tstate: " + res._state)
                 print ("\ttimestamp: " + str(res._timestamp))
+                print ("\tlast update: " + str(res._lastupdate))
 
     ########################
     # Update Resources State
@@ -202,8 +217,6 @@ class MercedesMeResources:
         for res in self.database:
             result = GetResource(URL_RES_PREFIX + res._href, self.mercedesConfig)
             if not "reason" in result:
-                res._valid = True
-                res._timestamp = result[res._name]["timestamp"]
-                res._state = result[res._name]["value"]
+                res.update(result[res._name]["value"], result[res._name]["timestamp"])
         # Write Resource File
         self.WriteResourcesFile()

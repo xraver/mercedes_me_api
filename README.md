@@ -1,8 +1,8 @@
 # mercedes_me_api 
-[![License Status][license-img]][license-url]
 [![Releases][releases-img]][releases-url]
 [![Last Commit][last-commit-img]][last-commit-url]
 [![hacs][hacs-img]][hacs-url]
+[![License Status][license-img]][license-url]
 [![BuyMeCoffee][buymecoffee-img]][buymecoffee-url]
 
 Script to use Mercedes Me APIs.
