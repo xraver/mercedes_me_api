@@ -208,7 +208,7 @@ class MercedesMeResources:
                 print ("\tvalid: " + str(res._valid))
                 print ("\tstate: " + res._state)
                 print ("\ttimestamp: " + str(res._timestamp))
-                print ("\tlast update: " + str(res._lastupdate))
+                print ("\tlast_update: " + str(res._lastupdate))
 
     ########################
     # Update Resources State
@@ -217,6 +217,6 @@ class MercedesMeResources:
         for res in self.database:
             result = GetResource(URL_RES_PREFIX + res._href, self.mercedesConfig)
             if not "reason" in result:
-                res.update(result[res._name]["value"], result[res._name]["timestamp"])
+                res.UpdateState(result[res._name]["value"], result[res._name]["timestamp"])
         # Write Resource File
         self.WriteResourcesFile()
