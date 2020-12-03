@@ -1,16 +1,17 @@
 #!/bin/bash
 
 # Author: G. Ravera
-# Version 0.2
+# Version 0.3
 # Creation Date: 28/09/2020
 #
 # Change log:
 #             28/09/2020 - 0.1 - First Issue
 #             18/10/2020 - 0.2 - Added the possibility to retrive the list of resources available
+#             03/12/2020 - 0.3 - Fix in resources list
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
-VERSION="0.2"
+VERSION="0.3"
 
 # Static Parameters
 REDIRECT_URL="https://localhost"
@@ -75,12 +76,12 @@ function parse_options ()
 	while [ $# -gt 0 ]; do
 		case $1 in
 			-t | --token )
-        getAuthCode
-        shift
+				getAuthCode
+				shift
 				;;
-      -r | --refresh )
-        refreshAuthCode
-        shift
+			-r | --refresh )
+				refreshAuthCode	
+				shift
 				;;
 			-f | --fuel )
 				printStatus "${RES_FUEL[@]}"
@@ -94,7 +95,7 @@ function parse_options ()
 				printStatus "${RES_STAT[@]}"
 				shift
 				;;
-			--resources )
+			-R | --resources )
 				printResources
 				shift
 				;;
