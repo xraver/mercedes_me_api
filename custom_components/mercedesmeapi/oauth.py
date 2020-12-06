@@ -14,8 +14,8 @@ from .const import *
 from .query import *
 
 URL_OAUTH_BASE = "https://id.mercedes-benz.com/as"
-URL_OAUTH_AUTH = URL_OAUTH_BASE + "/authorization.oauth2?response_type=code"
-URL_OAUTH_TOKEN = URL_OAUTH_BASE + "/token.oauth2"
+URL_OAUTH_AUTH = f"{URL_OAUTH_BASE}/authorization.oauth2?response_type=code"
+URL_OAUTH_TOKEN = f"{URL_OAUTH_BASE}/token.oauth2"
 
 # Logger
 _LOGGER = logging.getLogger(__name__)
@@ -39,12 +39,12 @@ class MercedesMeOauth:
         # Token File
         self.token_file = hass.config.path(TOKEN_FILE)
         # Base64
-        b64_str = client_id + ":" + client_secret
+        b64_str = f"{client_id}:{client_secret}"
         b64_bytes = base64.b64encode( b64_str.encode('ascii') )
         self.base64 = b64_bytes.decode('ascii')
         # Headers
         self.headers = {
-            "Authorization": "Basic " + self.base64,
+            "Authorization": f"Basic {self.base64}",
             "content-type": "application/x-www-form-urlencoded"
         }
 
@@ -105,13 +105,13 @@ class MercedesMeOauth:
     ########################
     def CheckToken(self, token):
         if "reason" in token:
-            _LOGGER.error ("Error retriving token - " + token["reason"] + " (" + str(token["code"]) + ")")
+            _LOGGER.error (f"Error retrieving token - {token['reason']} ({token['code']})")
             return False
         if "error" in token:
             if "error_description" in token:
-                _LOGGER.error ("Error retriving token: " + token["error_description"])
+                _LOGGER.error (f"Error retrieving token: {token['error_description']}")
             else:
-                _LOGGER.error ("Error retriving token: " + token["error"])
+                _LOGGER.error (f"Error retrieving token: {token['error']}")
             return False
         if len(token) == 0:
             _LOGGER.error ("Empty token found.")
@@ -137,11 +137,11 @@ class MercedesMeOauth:
         )
 
         print( "Open the browser and insert this link:\n" )
-        print(auth_url + "\n")
+        print(f"{auth_url}\n")
         print( "Copy the code in the url:")
         auth_code = input()
 
-        data = "grant_type=authorization_code&code=" + auth_code + "&redirect_uri=" + REDIRECT_URL
+        data = f"grant_type=authorization_code&code={auth_code}&redirect_uri={REDIRECT_URL}"
         token = GetToken(URL_OAUTH_TOKEN, self.headers, data)
 
         # Check Token
@@ -160,7 +160,7 @@ class MercedesMeOauth:
     ########################
     def RefreshToken(self):
 
-        data = "grant_type=refresh_token&refresh_token=" + self.refresh_token
+        data = f"grant_type=refresh_token&refresh_token={self.refresh_token}" 
         token = GetToken(URL_OAUTH_TOKEN, self.headers, data)
 
         # Check Token

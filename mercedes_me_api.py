@@ -31,8 +31,8 @@ def ParseInput():
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--token', action='store_true', help="Procedure to obtatin the Access Token")
     parser.add_argument('-r', '--refresh', action='store_true', help="Procedure to refresh the Access Token")
-    parser.add_argument('-s', '--status', action='store_true', help="Retrive the Status of your Vehicle")
-    parser.add_argument('-R', '--resources', action='store_true', help="Retrive the list of available resources of your Vehicle")
+    parser.add_argument('-s', '--status', action='store_true', help="Retrieve the Status of your Vehicle")
+    parser.add_argument('-R', '--resources', action='store_true', help="Retrieve the list of available resources of your Vehicle")
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + VERSION)
 
     if len(sys.argv)==1:

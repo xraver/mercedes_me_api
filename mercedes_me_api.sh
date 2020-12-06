@@ -6,7 +6,7 @@
 #
 # Change log:
 #             28/09/2020 - 0.1 - First Issue
-#             18/10/2020 - 0.2 - Added the possibility to retrive the list of resources available
+#             18/10/2020 - 0.2 - Added the possibility to retrieve the list of resources available
 #             03/12/2020 - 0.3 - Fix in resources list
 
 # Script Name & Version
@@ -55,10 +55,10 @@ function usage ()
   echo "Arguments:"
   echo "    -t, --token        Procedure to obtatin the Access Token (stored into $TOKEN_FILE)"
   echo "    -r, --refresh      Procedure to refresh the Access Token (stored into $TOKEN_FILE)"
-  echo "    -f, --fuel         Retrive the Fuel Status of your Vehicle"
-  echo "    -l, --lock         Retrive the Lock Status of your Vehicle"
-  echo "    -s, --status       Retrive the General Status of your Vehicle"
-  echo "    -R, --resources    Retrive the list of available resources of your Vehicle"
+  echo "    -f, --fuel         Retrieve the Fuel Status of your Vehicle"
+  echo "    -l, --lock         Retrieve the Lock Status of your Vehicle"
+  echo "    -s, --status       Retrieve the General Status of your Vehicle"
+  echo "    -R, --resources    Retrieve the list of available resources of your Vehicle"
   exit
 }
 
@@ -162,7 +162,7 @@ function printStatus ()
 
   for r in "$@"
     do
-    echo "Retriving $r:"
+    echo "Retrieving $r:"
     curl -X GET "$RES_URL/$r" -H "accept: application/json;charset=utf-8" -H "authorization: Bearer $ACCESS_TOKEN"
     echo
   done

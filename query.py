@@ -22,7 +22,7 @@ def GetResource(resourceURL, config):
     # Set Header
     headers = {
         "accept": "application/json;charset=utf-8", 
-        "authorization": "Bearer "+ config.token.access_token
+        "authorization": f"Bearer {config.token.access_token}"
     }
 
     # Send Request
@@ -69,7 +69,7 @@ def GetToken(tokenURL, headers, data):
     try:
         data = res.json()
     except ValueError:
-        _LOGGER.error ("Error retriving token " + str(res.status_code))
+        _LOGGER.error (f"Error retrieving token {res.status_code}")
         data = { "reason": "No Data",
                  "code" : res.status_code 
         }
