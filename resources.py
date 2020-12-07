@@ -61,6 +61,10 @@ class MercedesMeResource:
         self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
         self._valid = True
 
+    def unique_id(self):
+        """Return the unique id of the sensor."""
+        return f"{self._vin}-{self._name}"
+
     def name(self):
         """Return the name of the sensor."""
         return f"{self._vin}_{self.name}"
@@ -76,15 +80,6 @@ class MercedesMeResource:
                 "timestamp": self._timestamp,
 				"last_update": self._lastupdate,
                 })
-
-    def update(self):
-        """Fetch new state data for the sensor."""
-        result = GetResource(URL_RES_PREFIX + self._href, self._config)
-        if not "reason" in result:
-            self._state = result[self._name]["value"]
-            self._timestamp = result[self._name]["timestamp"]
-            self._lastupdate = datetime.fromtimestamp(self._timestamp/1000)
-            self._valid = True
 
 class MercedesMeResources:
 
