@@ -87,11 +87,6 @@ class MercedesMeResource (Entity):
 				"last_update": self._lastupdate,
                 })
 
-#    @property
-#    def unit_of_measurement(self):
-#        """Return the unit of measurement."""
-#        return TEMP_CELSIUS
-
 class MercedesMeResources:
 
     ########################
@@ -214,6 +209,7 @@ class MercedesMeResources:
                 print (f"\tvalid: {res._valid}")
                 print (f"\tstate: {res._state}")
                 print (f"\ttimestamp: {res._timestamp}")
+                print (f"\tlast_update: {res._lastupdate}")
 
     ########################
     # Update Resources State
