@@ -63,7 +63,7 @@ class MercedesMeResource:
 
     def name(self):
         """Return the name of the sensor."""
-        return self._vin + "_" + self._name
+        return f"{self._vin}_{self.name}"
 
     def state(self):
         """Return state for the sensor."""
@@ -106,7 +106,7 @@ class MercedesMeResources:
         resources = None
 
         if not os.path.isfile(self.resources_file):
-            # Resources File not present - Retriving new one from server
+            # Resources File not present - Retrieving new one from server
             _LOGGER.error ("Resource File missing - Creating a new one.")
             found = False
         else:
@@ -123,10 +123,10 @@ class MercedesMeResources:
 
         if ( not found ):
             # Not valid or file missing
-            resources = self.RetriveResourcesList()
+            resources = self.RetrieveResourcesList()
             if( resources == None ):
                 # Not found or wrong
-                _LOGGER.error ("Error retriving resource list.")
+                _LOGGER.error ("Error retrieving resource list.")
                 return False
             else:
                 # import and write
@@ -143,13 +143,13 @@ class MercedesMeResources:
     ########################
     def CheckResources(self, resources):
         if "reason" in resources:
-            _LOGGER.error ("Error retriving available resources - " + resources["reason"] + " (" + str(resources["code"]) + ")")
+            _LOGGER.error (f"Error retrieving available resources - {resources['reason']} ({resources['code']})")
             return False
         if "error" in resources:
             if "error_description" in resources:
-                _LOGGER.error ("Error retriving resources: " + resources["error_description"])
+                _LOGGER.error (f"Error retrieving resources: {resources['error_description']}")
             else:
-                _LOGGER.error ("Error retriving resources: " + resources["error"])
+                _LOGGER.error (f"Error retrieving resources: {resources['error']}")
             return False
         if len(resources) == 0:
             _LOGGER.error ("Empty resources found.")
@@ -157,13 +157,13 @@ class MercedesMeResources:
         return True
 
     ########################
-    # Retrive Resources List
+    # Retrieve Resources List
     ########################
-    def RetriveResourcesList(self):
-        resURL = URL_RES_PREFIX + "/vehicles/" + self.mercedesConfig.vin + "/resources"
+    def RetrieveResourcesList(self):
+        resURL = f"{URL_RES_PREFIX}/vehicles/{self.mercedesConfig.vin}/resources"
         resources = GetResource(resURL, self.mercedesConfig)
         if not self.CheckResources(resources):
-            _LOGGER.error ("Error retriving available resources")
+            _LOGGER.error ("Error retrieving available resources")
             return None
         else:
             return resources
@@ -194,9 +194,9 @@ class MercedesMeResources:
     # Print Available Resources
     ########################
     def PrintAvailableResources(self):
-        print ("Found %d resources" % len(self.database) + ":")
+        print (f"Found {len(self.database)} resources:")
         for res in self.database:
-            print (res._name + ": " + URL_RES_PREFIX + res._href)
+            print (f"{res._name}: {URL_RES_PREFIX}{res._href}")
 
     ########################
     # Print Resources State
@@ -204,18 +204,18 @@ class MercedesMeResources:
     def PrintResourcesState(self, valid = True):
         for res in self.database:
             if((not valid) | res._valid):
-                print (res._name + ":")
-                print ("\tvalid: " + str(res._valid))
-                print ("\tstate: " + res._state)
-                print ("\ttimestamp: " + str(res._timestamp))
-                print ("\tlast_update: " + str(res._lastupdate))
+                print (f"{res._name}:")
+                print (f"\tvalid: {res._valid}")
+                print (f"\tstate: {res._state}")
+                print (f"\ttimestamp: {res._timestamp}")
+                print (f"\tlast_update: {res._lastupdate}")
 
     ########################
     # Update Resources State
     ########################
     def UpdateResourcesState(self):
         for res in self.database:
-            result = GetResource(URL_RES_PREFIX + res._href, self.mercedesConfig)
+            result = GetResource(f"{URL_RES_PREFIX}{res._href}", self.mercedesConfig)
             if not "reason" in result:
                 res.UpdateState(result[res._name]["value"], result[res._name]["timestamp"])
         # Write Resource File
