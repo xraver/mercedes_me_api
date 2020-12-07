@@ -64,6 +64,11 @@ class MercedesMeResource (Entity):
         self._valid = True
 
     @property
+    def unique_id(self):
+        """Return the unique id of the sensor."""
+        return f"{self._vin}-{self._name}"
+
+    @property
     def name(self):
         """Return the name of the sensor."""
         return f"{self._vin}_{self.name}"
