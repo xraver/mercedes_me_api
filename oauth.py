@@ -141,7 +141,7 @@ class MercedesMeOauth:
         auth_code = input()
 
         data = f"grant_type=authorization_code&code={auth_code}&redirect_uri={REDIRECT_URL}"
-        token = GetToken(URL_OAUTH_TOKEN, self.headers, data)
+        token = GetToken(URL_OAUTH_TOKEN, self.headers, data, refresh=False)
 
         # Check Token
         if not self.CheckToken(token):
@@ -159,8 +159,8 @@ class MercedesMeOauth:
     ########################
     def RefreshToken(self):
 
-        data = f"grant_type=refresh_token&refresh_token={self.refresh_token}" 
-        token = GetToken(URL_OAUTH_TOKEN, self.headers, data)
+        data = f"grant_type=refresh_token&refresh_token={self.refresh_token}"
+        token = GetToken(URL_OAUTH_TOKEN, self.headers, data, refresh=True)
 
         # Check Token
         if not self.CheckToken(token):
