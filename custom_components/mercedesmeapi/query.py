@@ -64,7 +64,7 @@ def GetResource(resourceURL, config):
 ########################
 # GetToken
 ########################
-def GetToken(tokenURL, headers, data):
+def GetToken(tokenURL, headers, data, refresh=True):
     res = requests.post(tokenURL, data = data, headers = headers)
     try:
         data = res.json()
@@ -79,14 +79,23 @@ def GetToken(tokenURL, headers, data):
         if ("reason" in data):
             reason = data["reason"]
         else:
-            if res.status_code == 302:
-                reason = "The request scope is invalid"
-            elif res.status_code == 400:
-                reason = "The redirect_uri differs from the registered one"
-            elif res.status_code == 401:
-                reason = "The specified client ID is invalid"
+            if (refresh == False):
+                # New Token Errors
+                if res.status_code == 302:
+                    reason = "The request scope is invalid"
+                elif res.status_code == 400:
+                    reason = "The redirect_uri differs from the registered one"
+                elif res.status_code == 401:
+                    reason = "The specified client ID is invalid"
+                else:
+                    reason = "Generic Error"
             else:
-                reason = "Generic Error"
+                # Refresh Token Errors
+                if res.status_code == 400:
+                    reason = "The given refresh token is not valid or was already used."
+                else:
+                    reason = "Generic Error"
+
         data["reason"] = reason
         data["code"] = res.status_code
 
