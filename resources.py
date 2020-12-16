@@ -67,7 +67,7 @@ class MercedesMeResource:
 
     def name(self):
         """Return the name of the sensor."""
-        return f"{self._vin}_{self.name}"
+        return f"{self._vin}_{self._name}"
 
     def state(self):
         """Return state for the sensor."""
