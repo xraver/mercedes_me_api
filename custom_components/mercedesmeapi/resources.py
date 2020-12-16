@@ -71,7 +71,7 @@ class MercedesMeResource (Entity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return f"{self._vin}_{self.name}"
+        return f"{self._vin}_{self._name}"
 
     @property
     def state(self):
