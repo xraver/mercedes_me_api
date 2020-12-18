@@ -1,21 +1,30 @@
 #!/bin/bash
 
 # Author: G. Ravera
-# Version 0.3
+# Version 0.4
 # Creation Date: 28/09/2020
 #
 # Change log:
 #             28/09/2020 - 0.1 - First Issue
 #             18/10/2020 - 0.2 - Added the possibility to retrieve the list of resources available
 #             03/12/2020 - 0.3 - Fix in resources list
+#             18/12/2020 - 0.4 - Added macOS support (robert@klep.name)
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
-VERSION="0.3"
+VERSION="0.4"
+
+# set "extended regular expression" argument for sed based on OS
+if [ "X$(uname -s)" = "XDarwin" ]
+then
+  SED_FLAG="-E"
+else
+  SED_FLAG="-r"
+fi
 
 # Static Parameters
 REDIRECT_URL="https://localhost"
-SCOPE="mb:vehicle:mbdata:fuelstatus mb:vehicle:mbdata:vehiclestatus mb:vehicle:mbdata:vehiclelock offline_access"
+SCOPE="mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20offline_access"
 STATE="12345678"
 TOKEN_FILE=".mercedesme_token"
 CREDENTIALS_FILE=".mercedesme_credentials"
@@ -106,8 +115,8 @@ function parse_options ()
 
 function generateBase64 ()
 {
-  BASE64=$(echo -n $CLIENT_ID:$CLIENT_SECRET | base64 | sed -r 's/ //')
-  BASE64=$(echo $BASE64 | sed -r 's/ //')
+  BASE64=$(echo -n $CLIENT_ID:$CLIENT_SECRET | base64 | sed $SED_FLAG 's/ //')
+  BASE64=$(echo $BASE64 | sed $SED_FLAG 's/ //')
 }
 
 function getAuthCode () 
@@ -148,12 +157,12 @@ function refreshAuthCode ()
 
 function extractAccessToken ()
 {
-  ACCESS_TOKEN=$(cat $TOKEN_FILE | sed -e "s/{//g;s/}//g" | sed -e "s/",/"\n/g" | sed -e "s/:/:\t/g" | grep access_token |awk '{print $2'} | sed -e "s/\"//g")
+  ACCESS_TOKEN=$(cat $TOKEN_FILE | grep -Eo '"access_token"[^:]*:[^"]*"[^"]+"' | grep -Eo '"[^"]+"$' | tr -d '"')
 }
 
 function extractRefreshToken ()
 {
-  REFRESH_CODE=$(cat $TOKEN_FILE | sed -e "s/{//g;s/}//g" | sed -e "s/",/"\n/g" | sed -e "s/:/:\t/g" | grep refresh_token |awk '{print $2'} | sed -e "s/\"//g")
+  REFRESH_CODE=$(cat $TOKEN_FILE | grep -Eo '"refresh_token"[^:]*:[^"]*"[^"]+"' | grep -Eo '"[^"]+"$' | tr -d '"')
 }
 
 function printStatus ()
