@@ -14,9 +14,11 @@ This repository contains a collection of scripts (including the Home Assistant C
    - [Fuel Status](https://developer.mercedes-benz.com/products/fuel_status)
    - [Vehicle Lock Status](https://developer.mercedes-benz.com/products/vehicle_lock_status)
    - [Vehicle Status](https://developer.mercedes-benz.com/products/vehicle_status)
+   - [Electric Vehicle Status](https://developer.mercedes-benz.com/products/electric_vehicle_status)
 
 Note: the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
-Note2: only one car is supported for the moment.
+Note2: not all sensors may be available in your own car.
+Note3: only one car is supported for the moment.
 
 ## Home Assistant Custom Component
 The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes me API](https://developer.mercedes-benz.com/products).

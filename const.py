@@ -6,15 +6,17 @@ Author: G. Ravera
 For more details about this component, please refer to the documentation at
 https://github.com/xraver/mercedes_me_api/
 """
-# Software Parameters
+# Software Name & Version
 NAME = "Mercedes Me API"
 DOMAIN = "mercedesmeapi"
-VERSION = "0.7"
+VERSION = "0.8"
+# Software Parameters
 TOKEN_FILE = ".mercedesme_token"
-CREDENTIAL_FILE = ".mercedesme_credentials"
+CREDENTIALS_FILE = ".mercedesme_credentials"
 RESOURCES_FILE = ".mercedesme_resources"
+# Mercedes me Application Parameters
 REDIRECT_URL = "https://localhost"
-SCOPE = "mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20offline_access"
+SCOPE = "mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20offline_access"
 URL_RES_PREFIX = "https://api.mercedes-benz.com/vehicledata/v2"
 
 # File Parameters

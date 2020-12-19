@@ -17,7 +17,8 @@ This component is still in development.
    - [Vehicle Status](https://developer.mercedes-benz.com/products/vehicle_status)
 
 Note: the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
-Note2: only one car is supported for the moment.
+Note2: not all sensors may be available in your own car.
+Note3: only one car is supported for the moment.
 
 ## Open Points
 - Complete OAUTH2 Authentication & Get the First Token

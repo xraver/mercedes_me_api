@@ -22,7 +22,7 @@ class MercedesMeConfig:
     # Init
     ########################
     def __init__(self):
-        self.credentials_file = CREDENTIAL_FILE
+        self.credentials_file = CREDENTIALS_FILE
         self.client_id = ""
         self.client_secret = ""
         self.vin = ""
