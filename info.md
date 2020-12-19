@@ -1,14 +1,15 @@
 # mercedes_me_api 
-[![License Status][license-img]][license-url]
 [![Releases][releases-img]][releases-url]
 [![Last Commit][last-commit-img]][last-commit-url]
 [![hacs][hacs-img]][hacs-url]
+[![License Status][license-img]][license-url]
 [![BuyMeCoffee][buymecoffee-img]][buymecoffee-url]
 
 The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes me API](https://developer.mercedes-benz.com/products).
+This component is still in development.
 
 ## Pre-Requirements
-1) Own a Mercedes-Benz Car with Mercedes me connect installed and working.
+1) Own a Mercedes Benz Car with Mercedes me installed and working.
 2) Create an application in https://developer.mercedes-benz.com/
 3) Register to the following APIs:
    - [Fuel Status](https://developer.mercedes-benz.com/products/fuel_status)
@@ -39,7 +40,7 @@ mercedesmeapi:
   client_id: <**INSERT_YOUR_CLIENT_ID**>
   client_secret: <**INSERT_YOUR_CLIENT_SECRET**>
   vehicle_id: <**INSERT_YOUR_VEHICLE_ID**>
-  scan_interval: <** TIME PERIOD TO REFRESH RESOURCES **>
+  scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES **>
 ```
 2) Actually it's not possible to retrieve the token from scratch. Please use the other script to retrieve the first token and copy it into hacs folder (.mercedesme_token)
 
