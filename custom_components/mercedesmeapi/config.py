@@ -72,5 +72,5 @@ class MercedesMeConfig:
         self.token = MercedesMeOauth(self.hass, self.client_id, self.client_secret)
         if not self.token.ReadToken():
             return False
-        
+
         return True
