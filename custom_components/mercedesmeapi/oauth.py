@@ -10,6 +10,7 @@ import base64
 import json
 import logging
 import os
+
 from .const import *
 from .query import *
 
@@ -19,6 +20,7 @@ URL_OAUTH_TOKEN = f"{URL_OAUTH_BASE}/token.oauth2"
 
 # Logger
 _LOGGER = logging.getLogger(__name__)
+
 
 class MercedesMeOauth:
 
@@ -59,10 +61,10 @@ class MercedesMeOauth:
         # Read Token
         if not os.path.isfile(self.token_file):
             # Token File not present - Creating new one
-            _LOGGER.error ("Token File missing - Creating a new one")
+            _LOGGER.error("Token File missing - Creating a new one")
             found = False
         else:
-            with open(self.token_file, 'r') as file:
+            with open(self.token_file, "r") as file:
                 try:
                     token = json.load(file)
                     if not self.CheckToken(token):
@@ -70,25 +72,25 @@ class MercedesMeOauth:
                     else:
                         found = True
                 except ValueError:
-                    _LOGGER.error ("Error reading token file - Creating a new one")
+                    _LOGGER.error("Error reading token file - Creating a new one")
                     found = False
 
-        if ( not found ):
+        if not found:
             # Not valid or file missing
             #if (not self.CreateToken()): GRGR -> to be fixed
             if (True):
-                _LOGGER.error ("Error creating token")
+                _LOGGER.error("Error creating token")
                 return False
         else:
             # Valid: just import
-            self.access_token = token['access_token']
-            self.refresh_token = token['refresh_token']
-            self.token_expires_in = token['expires_in']
+            self.access_token = token["access_token"]
+            self.refresh_token = token["refresh_token"]
+            self.token_expires_in = token["expires_in"]
             needToRefresh = True
 
-        if (needToRefresh):
-            if (not self.RefreshToken()):
-                _LOGGER.error ("Error refreshing token")
+        if needToRefresh:
+            if not self.RefreshToken():
+                _LOGGER.error("Error refreshing token")
                 return False
 
         return True
@@ -97,7 +99,7 @@ class MercedesMeOauth:
     # Write Token
     ########################
     def WriteToken(self, token):
-        with open(self.token_file, 'w') as file:
+        with open(self.token_file, "w") as file:
             json.dump(token, file)
 
     ########################
@@ -105,22 +107,24 @@ class MercedesMeOauth:
     ########################
     def CheckToken(self, token):
         if "reason" in token:
-            _LOGGER.error (f"Error retrieving token - {token['reason']} ({token['code']})")
+            _LOGGER.error(
+                f"Error retrieving token - {token['reason']} ({token['code']})"
+            )
             return False
         if "error" in token:
             if "error_description" in token:
-                _LOGGER.error (f"Error retrieving token: {token['error_description']}")
+                _LOGGER.error(f"Error retrieving token: {token['error_description']}")
             else:
-                _LOGGER.error (f"Error retrieving token: {token['error']}")
+                _LOGGER.error(f"Error retrieving token: {token['error']}")
             return False
         if len(token) == 0:
-            _LOGGER.error ("Empty token found.")
+            _LOGGER.error("Empty token found.")
             return False
-        if not 'access_token' in token:
-            _LOGGER.error ("Access token not present.")
+        if not "access_token" in token:
+            _LOGGER.error("Access token not present.")
             return False
-        if not 'refresh_token' in token:
-            _LOGGER.error ("Refresh token not present.")
+        if not "refresh_token" in token:
+            _LOGGER.error("Refresh token not present.")
             return False
         return True
 
@@ -130,15 +134,15 @@ class MercedesMeOauth:
     def CreateToken(self):
 
         auth_url = (
-            f"{URL_OAUTH_AUTH}&" +
-            f"client_id={self.client_id}&" + 
-            f"redirect_uri={REDIRECT_URL}&" + 
-            f"scope={SCOPE}"
+            f"{URL_OAUTH_AUTH}&"
+            + f"client_id={self.client_id}&"
+            + f"redirect_uri={REDIRECT_URL}&"
+            + f"scope={SCOPE}"
         )
 
-        print( "Open the browser and insert this link:\n" )
+        print("Open the browser and insert this link:\n")
         print(f"{auth_url}\n")
-        print( "Copy the code in the url:")
+        print("Copy the code in the url:")
         auth_code = input()
 
         data = f"grant_type=authorization_code&code={auth_code}&redirect_uri={REDIRECT_URL}"
@@ -150,9 +154,9 @@ class MercedesMeOauth:
         else:
             # Save Token
             self.WriteToken(token)
-            self.access_token = token['access_token']
-            self.refresh_token = token['refresh_token']
-            self.token_expires_in = token['expires_in']
+            self.access_token = token["access_token"]
+            self.refresh_token = token["refresh_token"]
+            self.token_expires_in = token["expires_in"]
             return True
 
     ########################
@@ -169,7 +173,7 @@ class MercedesMeOauth:
         else:
             # Save Token
             self.WriteToken(token)
-            self.access_token = token['access_token']
-            self.refresh_token = token['refresh_token']
-            self.token_expires_in = token['expires_in']
+            self.access_token = token["access_token"]
+            self.refresh_token = token["refresh_token"]
+            self.token_expires_in = token["expires_in"]
         return True
