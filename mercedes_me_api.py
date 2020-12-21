@@ -11,11 +11,12 @@ import logging
 import sys
 
 from config import MercedesMeConfig
-from resources import MercedesMeResources
 from const import *
+from resources import MercedesMeResources
 
 # Logger
 _LOGGER = logging.getLogger(__name__)
+
 
 class MercedesMeData:
     def __init__(self):
@@ -24,22 +25,46 @@ class MercedesMeData:
         # Resource Data
         self.mercedesResources = MercedesMeResources(self.mercedesConfig)
 
+
 ########################
 # Parse Input
 ########################
 def ParseInput():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--token', action='store_true', help="Procedure to obtatin the Access Token")
-    parser.add_argument('-r', '--refresh', action='store_true', help="Procedure to refresh the Access Token")
-    parser.add_argument('-s', '--status', action='store_true', help="Retrieve the Status of your Vehicle")
-    parser.add_argument('-R', '--resources', action='store_true', help="Retrieve the list of available resources of your Vehicle")
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + VERSION)
+    parser.add_argument(
+        "-t",
+        "--token",
+        action="store_true",
+        help="Procedure to obtatin the Access Token",
+    )
+    parser.add_argument(
+        "-r",
+        "--refresh",
+        action="store_true",
+        help="Procedure to refresh the Access Token",
+    )
+    parser.add_argument(
+        "-s",
+        "--status",
+        action="store_true",
+        help="Retrieve the Status of your Vehicle",
+    )
+    parser.add_argument(
+        "-R",
+        "--resources",
+        action="store_true",
+        help="Retrieve the list of available resources of your Vehicle",
+    )
+    parser.add_argument(
+        "-v", "--version", action="version", version="%(prog)s " + VERSION
+    )
 
-    if len(sys.argv)==1:
+    if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
         exit(1)
 
     return parser.parse_args()
+
 
 ########################
 # Main
@@ -54,31 +79,31 @@ if __name__ == "__main__":
 
     # Reading Configuration
     if not data.mercedesConfig.ReadConfig():
-        _LOGGER.error ("Error initializing configuration")
-        exit (1)
+        _LOGGER.error("Error initializing configuration")
+        exit(1)
 
     # Create Token
-    if (args.token == True):
+    if args.token == True:
         if not data.mercedesConfig.token.CreateToken():
-            _LOGGER.error ("Error creating token")
-            exit (1)
+            _LOGGER.error("Error creating token")
+            exit(1)
 
     # Refresh Token
-    if (args.refresh == True):
+    if args.refresh == True:
         if not data.mercedesConfig.token.RefreshToken():
-            _LOGGER.error ("Error refreshing token")
-            exit (1)
-            
+            _LOGGER.error("Error refreshing token")
+            exit(1)
+
     # Read Resources
     if not data.mercedesResources.ReadResources():
-        _LOGGER.error ("Error initializing resources")
-        exit (1)
+        _LOGGER.error("Error initializing resources")
+        exit(1)
 
     # Print Available Resources
-    if (args.resources):
+    if args.resources:
         data.mercedesResources.PrintAvailableResources()
 
     # Print Resources State
-    if (args.status == True):
+    if args.status == True:
         data.mercedesResources.UpdateResourcesState()
         data.mercedesResources.PrintResourcesState()
