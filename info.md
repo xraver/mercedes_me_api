@@ -22,12 +22,13 @@ Note: the APIs described above do not require any subscription in case you use t
 Note2: not all sensors may be available in your own car; if a sensor is not available the data request returns no data.
 Note3: only one car is supported for the moment.
 
-## Open Points
+## Open Points & Issues
 - Complete OAUTH2 Authentication & Get the First Token
 - Get state after starts -> now it waits <scan_interval> seconds.
 - Config Flow for automatic configuration
 - Log Management
 - Bugfix & Software optimizations
+For further details please refer to [issues list][issues-url].
 
 {% if not installed %}
 ## Installation
@@ -60,6 +61,7 @@ You can find change log under [releases][releases-url]
 
 [license-img]: https://img.shields.io/github/license/xraver/mercedes_me_api
 [license-url]: LICENSE
+[issues-url]: https://github.com/xraver/mercedes_me_api/issues
 [releases-img]: https://img.shields.io/github/v/release/xraver/mercedes_me_api
 [releases-url]: https://github.com/xraver/mercedes_me_api/releases
 [last-commit-img]: https://img.shields.io/github/last-commit/xraver/mercedes_me_api

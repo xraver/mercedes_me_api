@@ -24,12 +24,13 @@ Note3: only one car is supported for the moment.
 ## Home Assistant Custom Component
 The Home Assistant Custom Component is a component to be added in Home Assistant in order to integrate the sensors of a Mercedes-Benz car using [Mercedes me API](https://developer.mercedes-benz.com/products).
 This component is still in development.
-### Open Points
+### Open Points & Issues
 - Complete OAUTH2 Authentication & Get the First Token
 - Get state after starts -> now it waits <scan_interval> seconds.
 - Config Flow for automatic configuration
 - Log Management
 - Bugfix & Software optimizations
+For further details please refer to [issues list][issues-url].
 
 ### Installation
 To use this custom component it's necessary to perform the following instructions:
@@ -108,6 +109,7 @@ You can find change log under [releases][releases-url]
 
 [license-img]: https://img.shields.io/github/license/xraver/mercedes_me_api
 [license-url]: LICENSE
+[issues-url]: https://github.com/xraver/mercedes_me_api/issues
 [releases-img]: https://img.shields.io/github/v/release/xraver/mercedes_me_api
 [releases-url]: https://github.com/xraver/mercedes_me_api/releases
 [last-commit-img]: https://img.shields.io/github/last-commit/xraver/mercedes_me_api
