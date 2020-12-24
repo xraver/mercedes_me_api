@@ -10,6 +10,7 @@
 #             03/12/2020 - 0.3 - Fix in resources list
 #             18/12/2020 - 0.4 - Added macOS support (robert@klep.name)
 #             19/12/2020 - 0.5 - Added Electric Vehicle Status support
+#             23/12/2020 - 0.6 - Added PayAsYouDrive support (danielrheinbay@gmail.com)
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
@@ -20,7 +21,7 @@ TOKEN_FILE=".mercedesme_token"
 CREDENTIALS_FILE=".mercedesme_credentials"
 # Mercedes me Application Parameters
 REDIRECT_URL="https://localhost"
-SCOPE="mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20offline_access"
+SCOPE="mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
 URL_RES_PREFIX="https://api.mercedes-benz.com/vehicledata/v2"
 # Resources
 RES_FUEL=(rangeliquid tanklevelpercent)
@@ -31,6 +32,7 @@ RES_STAT=(decklidstatus doorstatusfrontleft doorstatusfrontright doorstatusrearl
           windowstatusfrontleft windowstatusfrontright windowstatusrearleft windowstatusrearright
 )
 RES_ELECTRIC=(soc rangeelectric)
+RES_ODO=(odo)
 
 # set "extended regular expression" argument for sed based on OS
 if [ "X$(uname -s)" = "XDarwin" ]
@@ -54,7 +56,6 @@ if [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ]; then
 fi
 
 # Formatting RES_URL
-# Formatting RES_URL
 RES_URL="$URL_RES_PREFIX/vehicles/$VEHICLE_ID/resources"
 
 function usage ()
@@ -71,6 +72,7 @@ function usage ()
   echo "    -l, --lock            Retrieve the Lock Status of your Vehicle"
   echo "    -s, --status          Retrieve the General Status of your Vehicle"
   echo "    -e, --electric-status Retrieve the General Electric Status of your Vehicle"
+  echo "    -o, --odometer        Retrieve the Odometer reading of your Vehicle"
   echo "    -R, --resources       Retrieve the list of available resources of your Vehicle"
   exit
 }
@@ -78,7 +80,7 @@ function usage ()
 function parse_options ()
 {
 	# Check Options
-	OPT=$(getopt -o trflseR --long token,refresh,fuel,lock,status,electric-status,resources -n "$NAME parse-error" -- "$@")
+	OPT=$(getopt -o trflseoR --long token,refresh,fuel,lock,status,electric-status,odometer,resources -n "$NAME parse-error" -- "$@")
 	if [ $? != 0 ] || [ $# -eq 0 ]; then
 		usage
 	fi
@@ -110,6 +112,10 @@ function parse_options ()
 				;;
 			-e | --electric-status )
 				printStatus "${RES_ELECTRIC[@]}"
+				shift
+				;;
+			-o | --odometer )
+				printStatus "${RES_ODO[@]}"
 				shift
 				;;
 			-R | --resources )
