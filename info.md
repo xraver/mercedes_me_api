@@ -12,12 +12,14 @@ This component is still in development.
 1) Own a Mercedes Benz Car with Mercedes me installed and working.
 2) Create an application in https://developer.mercedes-benz.com/
 3) Register to the following APIs:
+   - [Electric Vehicle Status](https://developer.mercedes-benz.com/products/electric_vehicle_status)
    - [Fuel Status](https://developer.mercedes-benz.com/products/fuel_status)
+   - [Pay As You Drive Insurance](https://developer.mercedes-benz.com/products/pay_as_you_drive_insurance) 
    - [Vehicle Lock Status](https://developer.mercedes-benz.com/products/vehicle_lock_status)
    - [Vehicle Status](https://developer.mercedes-benz.com/products/vehicle_status)
 
 Note: the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
-Note2: not all sensors may be available in your own car.
+Note2: not all sensors may be available in your own car; if a sensor is not available the data request returns no data.
 Note3: only one car is supported for the moment.
 
 ## Open Points

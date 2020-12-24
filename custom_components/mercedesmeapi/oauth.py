@@ -42,12 +42,12 @@ class MercedesMeOauth:
         self.token_file = hass.config.path(TOKEN_FILE)
         # Base64
         b64_str = f"{client_id}:{client_secret}"
-        b64_bytes = base64.b64encode( b64_str.encode('ascii') )
-        self.base64 = b64_bytes.decode('ascii')
+        b64_bytes = base64.b64encode(b64_str.encode("ascii"))
+        self.base64 = b64_bytes.decode("ascii")
         # Headers
         self.headers = {
             "Authorization": f"Basic {self.base64}",
-            "content-type": "application/x-www-form-urlencoded"
+            "content-type": "application/x-www-form-urlencoded",
         }
 
     ########################

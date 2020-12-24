@@ -9,7 +9,7 @@ https://github.com/xraver/mercedes_me_api/
 # Software Name & Version
 NAME = "Mercedes Me API"
 DOMAIN = "mercedesmeapi"
-VERSION = "0.8"
+VERSION = "0.9"
 # Software Parameters
 TOKEN_FILE = ".mercedesme_token"
 CREDENTIALS_FILE = ".mercedesme_credentials"
@@ -20,7 +20,7 @@ SCOPE = "mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:veh
 URL_RES_PREFIX = "https://api.mercedes-benz.com/vehicledata/v2"
 #UPDATE_SIGNAL = "mercedesmeapi_update"
 
-# File Parameters
+# Configuration File Parameters
 CONF_CLIENT_ID = "client_id"
 CONF_CLIENT_SECRET = "client_secret"
 CONF_VEHICLE_ID = "vehicle_id"

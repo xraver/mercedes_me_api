@@ -7,7 +7,6 @@ For more details about this component, please refer to the documentation at
 https://github.com/xraver/mercedes_me_api/
 """
 import logging
-
 import requests
 
 from const import *

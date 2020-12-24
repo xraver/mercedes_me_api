@@ -21,8 +21,8 @@ def GetResource(resourceURL, config):
 
     # Set Header
     headers = {
-        "accept": "application/json;charset=utf-8", 
-        "authorization": f"Bearer {config.token.access_token}"
+        "accept": "application/json;charset=utf-8",
+        "authorization": f"Bearer {config.token.access_token}",
     }
 
     # Send Request
@@ -30,13 +30,11 @@ def GetResource(resourceURL, config):
     try:
         data = res.json()
     except ValueError:
-        data = { "reason": "No Data",
-                 "code" : res.status_code 
-        }
+        data = {"reason": "No Data", "code": res.status_code}
 
     # Check Error
     if not res.ok:
-        if ("reason" in data):
+        if "reason" in data:
             reason = data["reason"]
         else:
             if res.status_code == 400:
@@ -50,7 +48,9 @@ def GetResource(resourceURL, config):
             elif res.status_code == 404:
                 reason = "Page not found"
             elif res.status_code == 429:
-                reason = "The service received too many requests in a given amount of time"
+                reason = (
+                    "The service received too many requests in a given amount of time"
+                )
             elif res.status_code == 500:
                 reason = "An error occurred on the server side"
             elif res.status_code == 503:
@@ -61,25 +61,24 @@ def GetResource(resourceURL, config):
         data["code"] = res.status_code
     return data
 
+
 ########################
 # GetToken
 ########################
 def GetToken(tokenURL, headers, data, refresh=True):
-    res = requests.post(tokenURL, data = data, headers = headers)
+    res = requests.post(tokenURL, data=data, headers=headers)
     try:
         data = res.json()
     except ValueError:
-        _LOGGER.error (f"Error retrieving token {res.status_code}")
-        data = { "reason": "No Data",
-                 "code" : res.status_code 
-        }
+        _LOGGER.error(f"Error retrieving token {res.status_code}")
+        data = {"reason": "No Data", "code": res.status_code}
 
     # Check Error
     if not res.ok:
-        if ("reason" in data):
+        if "reason" in data:
             reason = data["reason"]
         else:
-            if (refresh == False):
+            if refresh == False:
                 # New Token Errors
                 if res.status_code == 302:
                     reason = "The request scope is invalid"
