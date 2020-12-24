@@ -88,12 +88,15 @@ Usage:    mercedes_me_api.sh <arguments>
 Example:  mercedes_me_api.sh --token --fuel
      or:  mercedes_me_api.sh -l
 
-The possible arguments are:
-    -t, --token        Procedure to obtatin the Access Token (stored into .mercedesme_token)
-    -r, --refresh      Procedure to refresh the Access Token (stored into .mercedesme_token)
-    -f, --fuel         Retrive the Fuel Status of your Vehicle
-    -l, --lock         Retrive the Lock Status of your Vehicle
-    -s, --status       Retrive the General Status of your Vehicle
+Arguments:
+    -t, --token           Procedure to obtatin the Access Token (stored into .mercedesme_token)
+    -r, --refresh         Procedure to refresh the Access Token (stored into .mercedesme_token)
+    -f, --fuel            Retrieve the Fuel Status of your Vehicle
+    -l, --lock            Retrieve the Lock Status of your Vehicle
+    -s, --status          Retrieve the General Status of your Vehicle
+    -e, --electric-status Retrieve the General Electric Status of your Vehicle
+    -o, --odometer        Retrieve the Odometer reading of your Vehicle
+    -R, --resources       Retrieve the list of available resources of your Vehicle
 ```
 
 ## Change Log
