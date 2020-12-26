@@ -30,6 +30,7 @@ This component is still in development.
 - Config Flow for automatic configuration
 - Log Management
 - Bugfix & Software optimizations
+
 For further details please refer to [issues list][issues-url].
 
 ### Installation
@@ -57,7 +58,7 @@ The installation is the same, the usage is different.
 ## Installation
 To use this script it's necessary to perform the following instructions:
 1) clone the repository
-2) create a credentials files (.mercedesme_credentials) with:
+2) create a config file (.mercedesme_config) with:
 ```bash
 CLIENT_ID=<**INSERT_YOUR_CLIENT_ID**>
 CLIENT_SECRET=<**INSERT_YOUR_CLIENT_SECRET**>

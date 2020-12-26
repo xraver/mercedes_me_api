@@ -14,11 +14,11 @@
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
-VERSION="0.5"
+VERSION="0.6"
 
 # Script Parameters
 TOKEN_FILE=".mercedesme_token"
-CREDENTIALS_FILE=".mercedesme_credentials"
+CONFIG_FILE=".mercedesme_config"
 # Mercedes me Application Parameters
 REDIRECT_URL="https://localhost"
 SCOPE="mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
@@ -47,11 +47,11 @@ CLIENT_ID=""
 CLIENT_SECRET=""
 VEHICLE_ID=""
 # Loading Credentials
-if [[ -f "$CREDENTIALS_FILE" ]]; then
-  . $CREDENTIALS_FILE
+if [[ -f "$CONFIG_FILE" ]]; then
+  . $CONFIG_FILE
 fi
 if [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ]; then
-  echo "Please create $CREDENTIALS_FILE with CLIENT_ID=\"\", CLIENT_SECRET=\"\", VEHICLE_ID=\"\""
+  echo "Please create $CONFIG_FILE with CLIENT_ID=\"\", CLIENT_SECRET=\"\", VEHICLE_ID=\"\""
   exit
 fi
 

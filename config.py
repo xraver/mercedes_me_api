@@ -24,7 +24,7 @@ class MercedesMeConfig:
     # Init
     ########################
     def __init__(self):
-        self.credentials_file = CREDENTIALS_FILE
+        self.config_file = CONFIG_FILE
         self.client_id = ""
         self.client_secret = ""
         self.vin = ""
@@ -36,14 +36,14 @@ class MercedesMeConfig:
     def ReadConfig(self):
         needToRefresh = False
 
-        # Read Credentials from file
-        if not os.path.isfile(self.credentials_file):
-            _LOGGER.error(f"Credential File {self.credentials_file} not found")
+        # Read Config from file
+        if not os.path.isfile(self.config_file):
+            _LOGGER.error(f"Credential File {self.config_file} not found")
             return False
         try:
-            f = ConfigObj(self.credentials_file)
+            f = ConfigObj(self.config_file)
         except Exception:
-            _LOGGER.error(f"Wrong {self.credentials_file} file found")
+            _LOGGER.error(f"Wrong {self.config_file} file found")
             return False
         # Client ID
         self.client_id = f.get(CONF_CLIENT_ID)

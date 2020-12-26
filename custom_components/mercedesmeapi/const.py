@@ -12,7 +12,6 @@ DOMAIN = "mercedesmeapi"
 VERSION = "0.9"
 # Software Parameters
 TOKEN_FILE = ".mercedesme_token"
-CREDENTIALS_FILE = ".mercedesme_credentials"
 RESOURCES_FILE = ".mercedesme_resources"
 # Mercedes me Application Parameters
 REDIRECT_URL = "https://localhost"

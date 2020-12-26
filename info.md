@@ -28,6 +28,7 @@ Note3: only one car is supported for the moment.
 - Config Flow for automatic configuration
 - Log Management
 - Bugfix & Software optimizations
+
 For further details please refer to [issues list][issues-url].
 
 {% if not installed %}
