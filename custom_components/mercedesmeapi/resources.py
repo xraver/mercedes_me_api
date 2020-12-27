@@ -111,21 +111,22 @@ class MercedesMeResources:
         found = False
         resources = None
 
-        if not os.path.isfile(self.resources_file):
-            # Resources File not present - Retrieving new one from server
-            _LOGGER.error("Resource File missing - Creating a new one.")
-            found = False
-        else:
-            with open(self.resources_file, "r") as file:
-                try:
-                    resources = json.load(file)
-                    if not self.CheckResources(resources):
-                        raise ValueError
-                    else:
-                        found = True
-                except ValueError:
-                    _LOGGER.error("Error reading resource file - Creating a new one.")
-                    found = False
+        if (self.mercedesConfig.enable_resources_file == True):
+            if not os.path.isfile(self.resources_file):
+                # Resources File not present - Retrieving new one from server
+                _LOGGER.error("Resource File missing - Creating a new one.")
+                found = False
+            else:
+                with open(self.resources_file, "r") as file:
+                    try:
+                        resources = json.load(file)
+                        if not self.CheckResources(resources):
+                            raise ValueError
+                        else:
+                            found = True
+                    except ValueError:
+                        _LOGGER.error("Error reading resource file - Creating a new one.")
+                        found = False
 
         if not found:
             # Not valid or file missing
@@ -209,13 +210,14 @@ class MercedesMeResources:
     # Write Resources File
     ########################
     def WriteResourcesFile(self):
-        output = []
-        # Extract List
-        for res in self.database:
-            output.append(res.getJson())
-        # Write File
-        with open(self.resources_file, "w") as file:
-            json.dump(output, file)
+        if (self.mercedesConfig.enable_resources_file == True):
+            output = []
+            # Extract List
+            for res in self.database:
+                output.append(res.getJson())
+            # Write File
+            with open(self.resources_file, "w") as file:
+                json.dump(output, file)
 
     ########################
     # Print Available Resources

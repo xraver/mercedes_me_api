@@ -30,6 +30,7 @@ CONFIG_SCHEMA = vol.Schema (
                 vol.Required(CONF_CLIENT_ID): cv.string,
                 vol.Required(CONF_CLIENT_SECRET): cv.string,
                 vol.Required(CONF_VEHICLE_ID): cv.string,
+                vol.Optional(CONF_ENABLE_RESOURCES_FILE, default=True): cv.boolean,
                 vol.Optional(CONF_SCAN_INTERVAL, default=30): vol.All(
                     cv.positive_int, vol.Clamp(min=60)
                 ),
@@ -51,6 +52,7 @@ class MercedesMeConfig:
         self.client_id = ""
         self.client_secret = ""
         self.vin = ""
+        self.enable_resources_file = True
         self.token = ""
 
     ########################
@@ -66,7 +68,14 @@ class MercedesMeConfig:
         self.client_secret = config[CONF_CLIENT_SECRET]
         # Vehicle ID
         self.vin = config[CONF_VEHICLE_ID]
-        # Scan Interval
+        # Enable Resources File (optional)
+        if (config[CONF_ENABLE_RESOURCES_FILE] == True):
+            self.enable_resources_file = True
+        elif(config[CONF_ENABLE_RESOURCES_FILE] == False):
+            self.enable_resources_file = False        
+        else:
+            _LOGGER.error(f"Wrong {CONF_ENABLE_RESOURCES_FILE} value found in configuration ({config[CONF_ENABLE_RESOURCES_FILE]}), using default value ({self.enable_resources_file})")
+        # Scan Interval (optional)
         self.scan_interval = config[CONF_SCAN_INTERVAL]
         # Read Token
         self.token = MercedesMeOauth(self.hass, self.client_id, self.client_secret)

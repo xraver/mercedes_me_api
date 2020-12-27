@@ -45,7 +45,8 @@ mercedesmeapi:
   client_id: <**INSERT_YOUR_CLIENT_ID**>
   client_secret: <**INSERT_YOUR_CLIENT_SECRET**>
   vehicle_id: <**INSERT_YOUR_VEHICLE_ID**>
-  scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES **>
+  enable_resources_file: <**ENABLE (True) OR DISABLE (False) RESOURCES - OPTIONAL **>
+  scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES - OPTIONAL **>
 ```
 2) Actually it's not possible to retrieve the token from scratch. Please use the other script to retrieve the first token and copy it into hacs folder (.mercedesme_token)
 
