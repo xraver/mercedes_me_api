@@ -25,11 +25,6 @@ class MercedesMeConfig:
     ########################
     def __init__(self):
         self.config_file = CONFIG_FILE
-        self.client_id = ""
-        self.client_secret = ""
-        self.vin = ""
-        self.enable_resources_file = True
-        self.token = ""
 
     ########################
     # Read Configuration
@@ -63,19 +58,10 @@ class MercedesMeConfig:
             return False
         # Enable Resources File (optional)
         valueFromFile = f.get(CONF_ENABLE_RESOURCES_FILE)
-        if not valueFromFile:
-            _LOGGER.error(
-                f"No {CONF_ENABLE_RESOURCES_FILE} found in the configuration, using default value ({self.enable_resources_file})"
-            )
+        if (valueFromFile == "true") | (valueFromFile == "True"):
+            self.enable_resources_file = True
         else:
-            if valueFromFile == "True":
-                self.enable_resources_file = True
-            elif valueFromFile == "False":
-                self.enable_resources_file = False
-            else:
-                _LOGGER.error(
-                    f"Wrong {CONF_ENABLE_RESOURCES_FILE} value found in the configuration ({valueFromFile}), using default value ({self.enable_resources_file})"
-                )
+            self.enable_resources_file = False
         # Read Token
         self.token = MercedesMeOauth(self.client_id, self.client_secret)
         if not self.token.ReadToken():

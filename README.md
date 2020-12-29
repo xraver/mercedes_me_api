@@ -45,8 +45,8 @@ mercedesmeapi:
   client_id: <**INSERT_YOUR_CLIENT_ID**>
   client_secret: <**INSERT_YOUR_CLIENT_SECRET**>
   vehicle_id: <**INSERT_YOUR_VEHICLE_ID**>
-  enable_resources_file: <**ENABLE (True) OR DISABLE (False) RESOURCES - OPTIONAL **>
-  scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES - OPTIONAL **>
+  enable_resources_file: <**ENABLE (true) OR DISABLE (false) RESOURCES - OPTIONAL (DEFAULT DISABLED)**>
+  scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES - OPTIONAL**>
 ```
 2) Actually it's not possible to retrieve the token from scratch. Please use the other script to retrieve the first token and copy it into hacs folder (.mercedesme_token)
 
@@ -64,7 +64,7 @@ To use this script it's necessary to perform the following instructions:
 CLIENT_ID=<**INSERT_YOUR_CLIENT_ID**>
 CLIENT_SECRET=<**INSERT_YOUR_CLIENT_SECRET**>
 VEHICLE_ID=<**INSERT_YOUR_VEHICLE_ID**>
-ENABLE_RESOURCES_FILE: <**ENABLE (True) OR DISABLE (False) RESOURCES - OPTIONAL **>
+ENABLE_RESOURCES_FILE: <**ENABLE (true) OR DISABLE (false) RESOURCES - (DEFAULT DISABLED)**>
 ```
 
 where CLIENT_ID and CLIENT_SECRET referring to the application information that can be found in [Mercedes Developer Console](https://developer.mercedes-benz.com/console) and VEHICLE_ID is the VIN of your car.

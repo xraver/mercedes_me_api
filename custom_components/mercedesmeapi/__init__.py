@@ -8,11 +8,37 @@ https://github.com/xraver/mercedes_me_api/
 """
 from datetime import timedelta
 import logging
+import voluptuous as vol
+
+from homeassistant.const import (
+    CONF_SCAN_INTERVAL,
+#    LENGTH_KILOMETERS,
+#    LENGTH_MILES,
+)
+from homeassistant.helpers import discovery, config_validation as cv
 
 from .config import MercedesMeConfig
 from .oauth import MercedesMeOauth
 from .resources import MercedesMeResources
 from .const import *
+
+# Config Schema
+CONFIG_SCHEMA = vol.Schema (
+    {
+        DOMAIN: vol.Schema (
+            {
+                vol.Required(CONF_CLIENT_ID): cv.string,
+                vol.Required(CONF_CLIENT_SECRET): cv.string,
+                vol.Required(CONF_VEHICLE_ID): cv.string,
+                vol.Optional(CONF_ENABLE_RESOURCES_FILE, default=False): cv.boolean,
+                vol.Optional(CONF_SCAN_INTERVAL, default=30): vol.All(
+                    cv.positive_int, vol.Clamp(min=120)
+                ),
+            }
+        )
+    },
+    extra=vol.ALLOW_EXTRA,
+)
 
 # Logger
 _LOGGER = logging.getLogger(__name__)
