@@ -18,9 +18,10 @@ This component is still in development.
    - [Vehicle Lock Status](https://developer.mercedes-benz.com/products/vehicle_lock_status)
    - [Vehicle Status](https://developer.mercedes-benz.com/products/vehicle_status)
 
-Note: the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
-Note2: not all sensors may be available in your own car; if a sensor is not available the data request returns no data.
-Note3: only one car is supported for the moment.
+Notes: 
+1) the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
+2) not all sensors may be available in your own car; if a sensor is not available the data request returns no data.
+3) only one car is supported for the moment.
 
 ## Open Points & Issues
 - Complete OAUTH2 Authentication & Get the First Token
