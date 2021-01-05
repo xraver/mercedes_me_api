@@ -22,7 +22,7 @@ CONFIG_FILE=".mercedesme_config"
 # Mercedes me Application Parameters
 REDIRECT_URL="https://localhost"
 SCOPE="mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
-URL_RES_PREFIX="https://api.mercedes-benz.com/vehicledata/v2"
+RES_URL_PREFIX="https://api.mercedes-benz.com/vehicledata/v2"
 # Resources
 RES_FUEL=(rangeliquid tanklevelpercent)
 RES_LOCK=(doorlockstatusvehicle doorlockstatusdecklid doorlockstatusgas positionHeading)
@@ -56,7 +56,7 @@ if [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ]; then
 fi
 
 # Formatting RES_URL
-RES_URL="$URL_RES_PREFIX/vehicles/$VEHICLE_ID/resources"
+RES_URL="$RES_URL_PREFIX/vehicles/$VEHICLE_ID/resources"
 
 function usage ()
 {

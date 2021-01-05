@@ -48,7 +48,15 @@ mercedesmeapi:
   enable_resources_file: <**ENABLE (true) OR DISABLE (false) RESOURCES - OPTIONAL (DEFAULT DISABLED)**>
   scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES - OPTIONAL**>
 ```
-2) Actually it's not possible to retrieve the token from scratch. Please use the other script to retrieve the first token and copy it into hacs folder (.mercedesme_token)
+2) Actually it's not possible to retrieve the token from scratch. Please use the other scripts to retrieve the first token and copy it (.mercedesme_token) into the homeassistant configuration folder, in the same path where configuration.yaml is located 
+
+## Debug
+To enable advanced log please expand the logger module configuration with the following lines:
+```yaml
+logger:
+  logs:
+    custom_components.mercedesmeapi: debug
+```
 
 ## Change Log
 You can find change log under [releases][releases-url]
@@ -68,7 +76,7 @@ You can find change log under [releases][releases-url]
 [releases-url]: https://github.com/xraver/mercedes_me_api/releases
 [last-commit-img]: https://img.shields.io/github/last-commit/xraver/mercedes_me_api
 [last-commit-url]: https://github.com/xraver/mercedes_me_api/commits/master
-[hacs-img]: https://img.shields.io/badge/HACS-Custom-orange.svg
+[hacs-img]: https://img.shields.io/badge/HACS-Default-orange.svg
 [hacs-url]: https://github.com/custom-components/hacs
 [buymecoffee-img]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg
 [buymecoffee-button]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg

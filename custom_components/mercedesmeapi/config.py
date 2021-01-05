@@ -10,8 +10,6 @@ import logging
 
 from homeassistant.const import (
     CONF_SCAN_INTERVAL,
-#    LENGTH_KILOMETERS,
-#    LENGTH_MILES,
 )
 
 from .const import *

@@ -9,7 +9,7 @@ https://github.com/xraver/mercedes_me_api/
 # Software Name & Version
 NAME = "Mercedes Me API"
 DOMAIN = "mercedesmeapi"
-VERSION = "0.9"
+VERSION = "0.10"
 # Software Parameters
 TOKEN_FILE = ".mercedesme_token"
 CONFIG_FILE = ".mercedesme_config"
