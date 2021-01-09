@@ -95,12 +95,13 @@ if __name__ == "__main__":
             exit(1)
 
     # Read Resources
-    if not data.mercedesResources.ReadResources():
-        _LOGGER.error("Error initializing resources")
-        exit(1)
+    if (args.resources == True) | (args.status == True):
+        if not data.mercedesResources.ReadResources():
+            _LOGGER.error("Error initializing resources")
+            exit(1)
 
     # Print Available Resources
-    if args.resources:
+    if args.resources == True:
         data.mercedesResources.PrintAvailableResources()
 
     # Print Resources State

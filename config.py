@@ -30,8 +30,6 @@ class MercedesMeConfig:
     # Read Configuration
     ########################
     def ReadConfig(self):
-        needToRefresh = False
-
         # Read Config from file
         if not os.path.isfile(self.config_file):
             _LOGGER.error(f"Credential File {self.config_file} not found")

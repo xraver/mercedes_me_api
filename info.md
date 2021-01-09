@@ -11,7 +11,7 @@ This component is still in development.
 ## Pre-Requirements
 1) Own a Mercedes Benz Car with Mercedes me installed and working.
 2) Create an application in https://developer.mercedes-benz.com/
-3) Register to the following APIs:
+3) Register to the following APIs (all of them):
    - [Electric Vehicle Status](https://developer.mercedes-benz.com/products/electric_vehicle_status)
    - [Fuel Status](https://developer.mercedes-benz.com/products/fuel_status)
    - [Pay As You Drive Insurance](https://developer.mercedes-benz.com/products/pay_as_you_drive_insurance) 
@@ -58,6 +58,17 @@ logger:
   logs:
     custom_components.mercedesmeapi: debug
 ```
+
+## First Token Creation
+To create the first token it's necessary to perform the following steps:
+1) Create the APP and register it to all APIs as describe in the Pre-Requirements paragraph
+2) Logout in all browser from Mercedes Me (Developer site included)
+3) Execute the shell or python script with -t parameter to obrain the first token
+4) Open with a browser the link provided by the script: a login page will be shown
+5) Using your Mercedes Me credential log in: a new web-page will ask to authorize the APP created in the step 1 to access to the personal information associated to the APIs registered
+6) Enable all information and press Allow
+7) An error page will appear: check the URI: it's something like https://localhost/?code=DQ8htZSw4WtJ27r7sTrVJwszGWxrCx9emy5FDUFa
+8) Copy the part of the URI after code= (in this case DQ8htZSw4WtJ27r7sTrVJwszGWxrCx9emy5FDUFa) and paste into the running script
 
 ## Change Log
 You can find change log under [releases][releases-url]

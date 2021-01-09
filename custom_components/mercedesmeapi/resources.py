@@ -111,6 +111,10 @@ class MercedesMeResources:
         found = False
         resources = None
 
+        if self.mercedesConfig.token.access_token == "":
+          _LOGGER.error("Error: Token not found or not valid")
+          return False
+
         if self.mercedesConfig.enable_resources_file == True:
             if not os.path.isfile(self.resources_file):
                 # Resources File not present - Retrieving new one from server

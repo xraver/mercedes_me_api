@@ -56,12 +56,11 @@ class MercedesMeOauth:
     def ReadToken(self):
 
         found = False
-        needToRefresh = False
 
         # Read Token
         if not os.path.isfile(self.token_file):
-            # Token File not present - Creating new one
-            _LOGGER.error("Token File missing - Creating a new one")
+            # Token File not present
+            _LOGGER.error("Token File missing")
             found = False
         else:
             with open(self.token_file, "r") as file:
@@ -72,22 +71,16 @@ class MercedesMeOauth:
                     else:
                         found = True
                 except ValueError:
-                    _LOGGER.error("Error reading token file - Creating a new one")
+                    _LOGGER.error("Error reading token file")
                     found = False
 
-        if not found:
-            # Not valid or file missing
-            if not self.CreateToken():
-                _LOGGER.error("Error creating token")
-                return False
-        else:
+        if found:
             # Valid: just import
             self.access_token = token["access_token"]
             self.refresh_token = token["refresh_token"]
             self.token_expires_in = token["expires_in"]
-            needToRefresh = True
 
-        if needToRefresh:
+            # Refreshing
             if not self.RefreshToken():
                 _LOGGER.error("Error refreshing token")
                 return False
@@ -162,6 +155,10 @@ class MercedesMeOauth:
     # Refresh Token
     ########################
     def RefreshToken(self):
+
+        if self.access_token == "":
+            _LOGGER.error("Error: Token not found or not valid")
+            return False
 
         data = f"grant_type=refresh_token&refresh_token={self.refresh_token}"
         token = GetToken(URL_OAUTH_TOKEN, self.headers, data, refresh=True)
