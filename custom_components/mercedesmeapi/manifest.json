@@ -4,5 +4,6 @@
     "documentation": "https://github.com/xraver/mercedes_me_api/blob/master/README.md",
     "issue_tracker": "https://github.com/xraver/mercedes_me_api/issues",
     "config_flow": false,
+    "version": "0.11",
     "codeowners": [ "@xraver" ]
 }
