@@ -14,9 +14,9 @@ import os
 from const import *
 from query import *
 
-URL_OAUTH_BASE = "https://id.mercedes-benz.com/as"
-URL_OAUTH_AUTH = f"{URL_OAUTH_BASE}/authorization.oauth2?response_type=code"
-URL_OAUTH_TOKEN = f"{URL_OAUTH_BASE}/token.oauth2"
+URL_OAUTH_BASE = "https://ssoalpha.dvb.corpinter.net/v1"
+URL_OAUTH_AUTH = f"{URL_OAUTH_BASE}/auth?response_type=code"
+URL_OAUTH_TOKEN = f"{URL_OAUTH_BASE}/token"
 
 # Logger
 _LOGGER = logging.getLogger(__name__)

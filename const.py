@@ -16,7 +16,7 @@ CONFIG_FILE = ".mercedesme_config"
 RESOURCES_FILE = ".mercedesme_resources"
 # Mercedes me Application Parameters
 REDIRECT_URL = "https://localhost"
-SCOPE = "mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
+SCOPE = "openid%20mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
 URL_RES_PREFIX = "https://api.mercedes-benz.com/vehicledata/v2"
 
 # Configuration File Parameters
