@@ -21,7 +21,7 @@ TOKEN_FILE=".mercedesme_token"
 CONFIG_FILE=".mercedesme_config"
 # Mercedes me Application Parameters
 REDIRECT_URL="https://localhost"
-SCOPE="mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
+SCOPE="openid%20mb:vehicle:mbdata:fuelstatus%20mb:vehicle:mbdata:vehiclestatus%20mb:vehicle:mbdata:vehiclelock%20mb:vehicle:mbdata:evstatus%20mb:vehicle:mbdata:payasyoudrive%20offline_access"
 RES_URL_PREFIX="https://api.mercedes-benz.com/vehicledata/v2"
 # Resources
 RES_FUEL=(rangeliquid tanklevelpercent)
@@ -50,7 +50,7 @@ VEHICLE_ID=""
 if [[ -f "$CONFIG_FILE" ]]; then
   . $CONFIG_FILE
 fi
-if [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ] | [ -z $CLIENT_ID ]; then
+if [ -z $CLIENT_ID ] | [ -z $CLIENT_SECRET ] | [ -z $VEHICLE_ID ]; then
   echo "Please create $CONFIG_FILE with CLIENT_ID=\"\", CLIENT_SECRET=\"\", VEHICLE_ID=\"\""
   exit
 fi
@@ -139,15 +139,15 @@ function getAuthCode ()
   
   echo "Open the browser and insert this link:"
   echo 
-  echo "https://id.mercedes-benz.com/as/authorization.oauth2?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URL&scope=$SCOPE"
-  #echo "https://id.mercedes-benz.com/as/authorization.oauth2?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URL&scope=$SCOPE&state=$STATE"
+  echo "https://ssoalpha.dvb.corpinter.net/v1/auth?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URL&scope=$SCOPE"
+  #echo "https://ssoalpha.dvb.corpinter.net/v1/auth?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URL&scope=$SCOPE&state=$STATE"
   echo 
   echo "Copy the code in the url:"
 
   read AUTH_CODE
 
   TOKEN=$(curl --request POST \
-               --url https://id.mercedes-benz.com/as/token.oauth2 \
+               --url https://ssoalpha.dvb.corpinter.net/v1/token \
                --header "Authorization: Basic $BASE64" \
                --header "content-type: application/x-www-form-urlencoded" \
                --data "grant_type=authorization_code&code=$AUTH_CODE&redirect_uri=$REDIRECT_URL")
