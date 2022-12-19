@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: G. Ravera
-# Version 0.5
+# Version 0.7
 # Creation Date: 28/09/2020
 #
 # Change log:
@@ -11,6 +11,7 @@
 #             18/12/2020 - 0.4 - Added macOS support (robert@klep.name)
 #             19/12/2020 - 0.5 - Added Electric Vehicle Status support
 #             23/12/2020 - 0.6 - Added PayAsYouDrive support (danielrheinbay@gmail.com)
+#             19/12/2022 - 0.7 - Updated URLs (samfaitmalomolet)
 
 # Script Name & Version
 NAME="mercedes_me_api.sh"
@@ -95,7 +96,7 @@ function parse_options ()
 				shift
 				;;
 			-r | --refresh )
-				refreshAuthCode	
+				refreshAuthCode
 				shift
 				;;
 			-f | --fuel )
@@ -133,15 +134,15 @@ function generateBase64 ()
   BASE64=$(echo $BASE64 | sed $SED_FLAG 's/ //')
 }
 
-function getAuthCode () 
+function getAuthCode ()
 {
   generateBase64
-  
+
   echo "Open the browser and insert this link:"
-  echo 
+  echo
   echo "https://ssoalpha.dvb.corpinter.net/v1/auth?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URL&scope=$SCOPE"
   #echo "https://ssoalpha.dvb.corpinter.net/v1/auth?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URL&scope=$SCOPE&state=$STATE"
-  echo 
+  echo
   echo "Copy the code in the url:"
 
   read AUTH_CODE
@@ -161,7 +162,7 @@ function refreshAuthCode ()
   extractRefreshToken
 
   TOKEN=$(curl --request POST \
-               --url https://id.mercedes-benz.com/as/token.oauth2 \
+               --url https://ssoalpha.dvb.corpinter.net/v1/token \
                --header "Authorization: Basic $BASE64" \
                --header "content-type: application/x-www-form-urlencoded" \
                --data "grant_type=refresh_token&refresh_token=$REFRESH_CODE")

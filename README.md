@@ -1,4 +1,4 @@
-# mercedes_me_api 
+# mercedes_me_api
 [![Releases][releases-img]][releases-url]
 [![Last Commit][last-commit-img]][last-commit-url]
 [![hacs][hacs-img]][hacs-url]
@@ -13,11 +13,11 @@ This repository contains a collection of scripts (including the Home Assistant C
 3) Register to the following APIs (all of them):
    - [Electric Vehicle Status](https://developer.mercedes-benz.com/products/electric_vehicle_status)
    - [Fuel Status](https://developer.mercedes-benz.com/products/fuel_status)
-   - [Pay As You Drive Insurance](https://developer.mercedes-benz.com/products/pay_as_you_drive_insurance) 
+   - [Pay As You Drive Insurance](https://developer.mercedes-benz.com/products/pay_as_you_drive_insurance)
    - [Vehicle Lock Status](https://developer.mercedes-benz.com/products/vehicle_lock_status)
    - [Vehicle Status](https://developer.mercedes-benz.com/products/vehicle_status)
 
-Notes: 
+Notes:
 1) the APIs described above do not require any subscription in case you use them with your own car associated with the Mercedes me Account.
 2) not all sensors may be available in your own car; if a sensor is not available the data request returns no data.
 3) only one car is supported for the moment.
@@ -49,7 +49,7 @@ mercedesmeapi:
   enable_resources_file: <**ENABLE (true) OR DISABLE (false) RESOURCES - OPTIONAL (DEFAULT DISABLED)**>
   scan_interval: <** TIME PERIOD (NUMBER OF SECONDS) TO REFRESH RESOURCES - OPTIONAL**>
 ```
-2) Actually it's not possible to retrieve the token from scratch. Please use the other scripts to retrieve the first token and copy it (.mercedesme_token) into the homeassistant configuration folder, in the same path where configuration.yaml is located 
+2) Actually it's not possible to retrieve the token from scratch. Please use the other scripts to retrieve the first token and copy it (.mercedesme_token) into the homeassistant configuration folder, in the same path where configuration.yaml is located
 
 ### Debug
 To enable advanced log please expand the logger module configuration with the following lines:
