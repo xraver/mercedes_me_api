@@ -1,12 +1,13 @@
 {
     "domain": "mercedesmeapi",
     "name": "Mercedes Me API",
+    "codeowners": [ "@xraver" ],
+    "config_flow": false,
+    "dependencies": [],
     "documentation": "https://github.com/xraver/mercedes_me_api/blob/master/README.md",
+    "integration_type": "hub",
+    "iot_class": "cloud_polling",
     "issue_tracker": "https://github.com/xraver/mercedes_me_api/issues",
     "requirements": [],
-    "dependencies": [],
-    "config_flow": false,
-    "version": "0.12",
-    "codeowners": [ "@xraver" ],
-    "iot_class": "cloud_polling"
+    "version": "0.13"
 }
